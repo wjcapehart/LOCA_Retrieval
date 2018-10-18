@@ -33,7 +33,7 @@ begin
    else
 
       print(".... "    + file_name + " is missing or damaged")
-      system("rm  " + file_name)
+      ;system("rm  " + file_name)
 
       number_of_missing_values     = -1
       number_of_missing_time_slots = -1
@@ -42,7 +42,7 @@ begin
    end if
 
    if ( (number_of_missing_values .gt. 0) .or. (number_of_missing_time_slots .gt. 0) .or. (number_of_zero_gridcells .gt. 0) ) then
-      system("rm  "+file_name)
+      ;system("rm  "+file_name)
 
       print(":::: Redo-ing " + file_name)
 
