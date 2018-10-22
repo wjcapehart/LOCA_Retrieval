@@ -188,8 +188,8 @@ do
 
                echo processing ${OUTFILE}
 
-               echo cdo -O -b I32 -z zip_8 monthsum  ${SUBSETFILE} ${OUTFILE}
-                    cdo -O -b I32 -z zip_8 monthsum  ${SUBSETFILE} ${OUTFILE}
+               echo cdo -O -b I32 -z zip_8 monsum  ${SUBSETFILE} ${OUTFILE}
+                    cdo -O -b I32 -z zip_8 monsum  ${SUBSETFILE} ${OUTFILE}
 
                ncatted -h -O -a     long_name,${VARNAME},m,c,"Total Monthly Precipitation" ${OUTFILE}
                ncatted -h -O -a   description,${VARNAME},m,c,"Total Monthly Precipitation" ${OUTFILE}
