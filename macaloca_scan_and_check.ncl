@@ -8,7 +8,7 @@ begin
 
       f = addfile(file_name,"r")
 
-      array = f->$variable_name$
+      array = short2flt(  f->$variable_name$ )
       time  = f->time
 
       print("....                       Range Values : " + min(array) + " " + max(array) + " " + array@units)
