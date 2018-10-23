@@ -19,9 +19,9 @@ begin
     print("XXXX "+v+ ":" +(dimsizes(variables) - 1)+ " "+ variables(v) + " XXXX")
 
     if (variable .eq. "pr") then
-      statistic = "CDO_YEARLY_TOTAL"
+      statistic = "CDO_PERIOD_ANNUAL_MEAN"
     else
-      statistic = "CDO_YEARLY_MEAN"
+      statistic = "CDO_PERIOD_ANNUAL_MEAN"
     end if
 
     do s = 0, dimsizes(scenarios) - 1
@@ -82,7 +82,7 @@ begin
         print("----------")
 
         filename = root_dir     +               \
-                   period       + "/ANNUAL/" +  \
+                   period       + "/INTERANNUAL/" +  \
                    variable     + "/" +  \
                    prefix       + "_" +  \
                    variable     + "_" +  \
@@ -98,11 +98,14 @@ begin
 
          f = addfile(filename, "r")
 
-         plot_data := tofloat(f->$variable_name$(0,:,:) ) * f->$variable_name$@scale_factor - f->$variable_name$@add_offset
 
-         plot_data@units = f->$variable_name$@units
+         plot_data            := tofloat(f->$variable_name$(0,:,:) ) * \
+                                 f->$variable_name$@scale_factor -     \
+                                 f->$variable_name$@add_offset
+
+         plot_data@units       = f->$variable_name$@units
          plot_data@description = f->$variable_name$@description
-         plot_data@long_name = f->$variable_name$@long_name
+         plot_data@long_name   = f->$variable_name$@long_name
 
          if (i .eq. 0) then
 
