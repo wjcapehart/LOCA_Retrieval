@@ -8,7 +8,8 @@ begin
                   "tasmax", \
                   "pr"  /)
 
-  scenarios = (/ "rcp85",      \
+  scenarios = (/ "historical", \
+                 "rcp85",      \
                  "rcp45"       /)
 
   do v = 0, dimsizes(variables) - 1
