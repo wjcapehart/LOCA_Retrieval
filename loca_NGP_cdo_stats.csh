@@ -334,9 +334,9 @@ do
                 echo
 
                 echo
-                echo ncatted -h -O -a   description,${VARNAME},m,c,"Mean Annual Min Temperature" ${TSUMFILE}
+                echo ncatted -h -O -a   description,${VARNAME},m,c,"Mean Annual Min Temperature" ${OUTFILE}
                 echo
-                     ncatted -h -O -a   description,${VARNAME},m,c,"Mean Annual Min Temperature" ${TSUMFILE}
+                     ncatted -h -O -a   description,${VARNAME},m,c,"Mean Annual Min Temperature" ${OUTFILE}
                 echo
 
                 export MIDFILE=${OUTFILE}
@@ -429,9 +429,9 @@ do
               echo
                    ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean DOY Total Preciptation" ${OUTFILE}
               echo
-              echo ncatted -h -O -a   description,${VARNAME},m,c,"Mean DOY Total Preciptation" ${TSUMFILE}
+              echo ncatted -h -O -a   description,${VARNAME},m,c,"Mean DOY Total Preciptation" ${OUTFILE}
               echo
-                   ncatted -h -O -a   description,${VARNAME},m,c,"Mean DOY Total Preciptation" ${TSUMFILE}
+                   ncatted -h -O -a   description,${VARNAME},m,c,"Mean DOY Total Preciptation" ${OUTFILE}
               echo
             fi
 
@@ -442,9 +442,9 @@ do
                    ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean DOY Min Daily Temperature" ${OUTFILE}
 
               echo
-              echo ncatted -h -O -a   description,${VARNAME},m,c,"Mean DOY Min Daily Temperature" ${TSUMFILE}
+              echo ncatted -h -O -a   description,${VARNAME},m,c,"Mean DOY Min Daily Temperature" ${OUTFILE}
               echo
-                   ncatted -h -O -a   description,${VARNAME},m,c,"Mean DOY Min Daily Temperature" ${TSUMFILE}
+                   ncatted -h -O -a   description,${VARNAME},m,c,"Mean DOY Min Daily Temperature" ${OUTFILE}
               echo
             fi
 
@@ -455,9 +455,9 @@ do
                    ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean DOY Max Daily Temperature" ${OUTFILE}
 
               echo
-              echo ncatted -h -O -a   description,${VARNAME},m,c,"Mean DOY Max Daily Temperature" ${TSUMFILE}
+              echo ncatted -h -O -a   description,${VARNAME},m,c,"Mean DOY Max Daily Temperature" ${OUTFILE}
               echo
-                   ncatted -h -O -a   description,${VARNAME},m,c,"Mean DOY Max Daily Temperature" ${TSUMFILE}
+                   ncatted -h -O -a   description,${VARNAME},m,c,"Mean DOY Max Daily Temperature" ${OUTFILE}
               echo
             fi
 
