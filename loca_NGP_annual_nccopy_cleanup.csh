@@ -24,8 +24,6 @@ then
    declare -a    PARAM=(  "pr"         "tasmin" "tasmax" )
    declare -a SCENARIO=(  "historical" "rcp85"  "rcp45"  )
 
-   declare -a    PARAM=(  "pr"         "tasmin" "tasmax" )
-   declare -a SCENARIO=(  "historical" "rcp85"  "rcp45"  )
 
    ### NCL COMMANDS TO FETCH GRIDCELLS BY LAT/LON
    #

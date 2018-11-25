@@ -51,25 +51,13 @@ HOST_NAME=`hostname`
 
 
 
-   declare -a ENSEMBLE=(
-                           "FGOALS-g2_r1i1p1"
-                           "GFDL-CM3_r1i1p1"
-                           "GFDL-ESM2G_r1i1p1"
-                           "GFDL-ESM2M_r1i1p1"
-                           )
 
    # setting the available variables
 
    declare -a    PARAM=( "tasmin" "tasmax" "pr")
 
+   declare -a SCENARIO=( "historical" "rcp45" "rcp85" )
 
-
-
-    declare -a SCENARIO=(  "rcp45" "rcp85" )
-
-
-   declare -a    PARAM=( "pr")
-   declare -a SCENARIO=(  "rcp45"  )
 
 
 
