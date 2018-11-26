@@ -617,9 +617,9 @@ do
                 echo
                 echo Processing ${PAR}_${ENS}_${SCEN} ydaypctl @ ${PER}% ${START_DATE} - ${END_DATE}
                 echo
-                echo cdo  -O -z zip_8 ydaypctl ${SUBSETFILE} ${MINFILE} ${MAXFILE} ${OUTFILE}
+                echo cdo  -O -z zip_8 ydaypctl,${PER} ${SUBSETFILE} ${MINFILE} ${MAXFILE} ${OUTFILE}
                 echo
-                     cdo  -O -z zip_8 ydaypctl ${SUBSETFILE} ${MINFILE} ${MAXFILE} ${OUTFILE}
+                     cdo  -O -z zip_8 ydaypctl,${PER} ${SUBSETFILE} ${MINFILE} ${MAXFILE} ${OUTFILE}
                 echo
 
                 if [[ ${PAR} == "pr" ]]; then
