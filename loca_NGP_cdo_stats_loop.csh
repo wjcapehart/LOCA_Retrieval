@@ -680,7 +680,7 @@ do
         export CLIPPED_OUTDIR_D=${CLIPPED_OUTDIR_ROOT}/DAILY/tasavg
 
         mkdir -v -p ${CLIPPED_OUTDIR_D}
-        
+
         rm -frv ./cdo_period_subset.nc
 
         export SUBSETFILE="./cdo_period_subset.nc"
@@ -795,9 +795,9 @@ do
           echo
           echo Processing ${PAR}_${ENS}_${SCEN} ydaypctl @ ${PER}% ${START_DATE} - ${END_DATE}
           echo
-          echo cdo  -O -z zip_8 ydaypctl ${SUBSETFILE} ${MINFILE} ${MAXFILE} ${OUTFILE}
+          echo cdo  -O -z zip_8 ydaypctl,${PER} ${SUBSETFILE} ${MINFILE} ${MAXFILE} ${OUTFILE}
           echo
-               cdo  -O -z zip_8 ydaypctl ${SUBSETFILE} ${MINFILE} ${MAXFILE} ${OUTFILE}
+               cdo  -O -z zip_8 ydaypctl,${PER} ${SUBSETFILE} ${MINFILE} ${MAXFILE} ${OUTFILE}
           echo
 
 
