@@ -1,6 +1,8 @@
 #!/bin/bash
 
 
+## ETCCDI https://code.mpimet.mpg.de/projects/cdo/embedded/cdo_eca.pdf
+
 OS_NAME=`uname`
 HOST_NAME=`hostname`
 
@@ -108,33 +110,32 @@ do
 
 
 
-
-
-     for PAR in "${PARAM[@]}"
+     for ENS in "${ENSEMBLE[@]}"
      do
         echo =============================================================
         echo
 
-        export CLIPPED_INPREFIX=${CLIPPED_INDIR_ROOT}/${SCEN}/${PAR}/${DATASETPREFIX}
 
-        echo processing $CLIPPED_INPREFIX
-
-        export   CLIPPED_OUTDIR_ROOT=${CLIPPED_INDIR_ROOT}/climatology/${PERIOD_STRING}
-
-
-        export   CLIPPED_OUTDIR_I=${CLIPPED_OUTDIR_ROOT}/INTERANNUAL/${PAR}
-        export   CLIPPED_OUTDIR_D=${CLIPPED_OUTDIR_ROOT}/DAILY/${PAR}
-        export   CLIPPED_OUTDIR_A=${CLIPPED_OUTDIR_ROOT}/ANNUAL/${PAR}
-        export   CLIPPED_OUTDIR_M=${CLIPPED_OUTDIR_ROOT}/MONTHLY/${PAR}
-
-        mkdir -vp ${CLIPPED_OUTDIR_ROOT}
-
-
-        for ENS in "${ENSEMBLE[@]}"
+        for PAR in "${PARAM[@]}"
         do
+
            echo
            echo - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
            echo
+
+           export CLIPPED_INPREFIX=${CLIPPED_INDIR_ROOT}/${SCEN}/${PAR}/${DATASETPREFIX}
+
+           echo processing $CLIPPED_INPREFIX
+
+           export   CLIPPED_OUTDIR_ROOT=${CLIPPED_INDIR_ROOT}/climatology/${PERIOD_STRING}
+
+
+           export   CLIPPED_OUTDIR_I=${CLIPPED_OUTDIR_ROOT}/INTERANNUAL/${PAR}
+           export   CLIPPED_OUTDIR_D=${CLIPPED_OUTDIR_ROOT}/DAILY/${PAR}
+           export   CLIPPED_OUTDIR_A=${CLIPPED_OUTDIR_ROOT}/ANNUAL/${PAR}
+           export   CLIPPED_OUTDIR_M=${CLIPPED_OUTDIR_ROOT}/MONTHLY/${PAR}
+
+           mkdir -vp ${CLIPPED_OUTDIR_ROOT}
 
            rm -frv ./cdo_period_subset.nc
 
@@ -387,14 +388,20 @@ do
               fi
 
 
-           else
+           else  #  offmvycle
+
+             mkdir -v -p ${CLIPPED_OUTDIR_D}
+
+              # Calculating Daily Means
 
               echo
               echo .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
 
-              mkdir -vp ${CLIPPED_OUTDIR_D}
+
+
 
               export SUBSETFILE="./cdo_period_subset.nc"
+
               echo
               echo Using Period String = ${PERIOD_STRING} clipping file
               echo
@@ -405,15 +412,20 @@ do
                    cdo -O -z zip_8 seldate,${START_DATE},${END_DATE}  ${INFILE} ${SUBSETFILE}
               echo
 
+
+
+
+
+
               ##
               ##  CALCULATE DOY MEANS
               ##
 
-              export OUTFILE=${CLIPPED_OUTDIR_M}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_DOY_AVERAGES.nc
+              export OUTFILE=${CLIPPED_OUTDIR_D}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_DOY_AVERAGES.nc
               echo
               echo processing ${OUTFILE}
               echo
-              echo Processing ${PAR}_${ENS}_${SCEN} daymean ${START_DATE} - ${END_DATE}
+              echo Processing ${PAR}_${ENS}_${SCEN} ydaymean ${START_DATE} - ${END_DATE}
               echo
               echo cdo  -O -z zip_8 ydaymean ${SUBSETFILE} ${OUTFILE}
               echo
@@ -433,6 +445,12 @@ do
               fi
 
               if [[ ${PAR} == "tasmin" ]]; then
+
+                echo
+                echo cp -frv ${SUBSETFILE} ./TEMP_tasmin.nc
+                echo
+                     cp -frv ${SUBSETFILE} ./TEMP_tasmin.nc
+
                 echo
                 echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean DOY Min Daily Temperature" ${OUTFILE}
                 echo
@@ -446,6 +464,12 @@ do
               fi
 
               if [[ ${PAR} == "tasmax" ]]; then
+
+                echo
+                echo cp -frv ${SUBSETFILE} ./TEMP_tasmax.nc
+                echo
+                     cp -frv ${SUBSETFILE} ./TEMP_tasmax.nc
+
                 echo
                 echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean DOY Max Daily Temperature" ${OUTFILE}
                 echo
@@ -458,12 +482,339 @@ do
                 echo
               fi
 
+
+
+              ##
+              ##  CALCULATE DOY Min
+              ##
+
+              export OUTFILE=${CLIPPED_OUTDIR_D}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_DOY_P000.nc
+              export MINFILE=${OUTFILE}
+              echo
+              echo processing ${OUTFILE}
+              echo
+              echo Processing ${PAR}_${ENS}_${SCEN} ydaymin ${START_DATE} - ${END_DATE}
+              echo
+              echo cdo  -O -z zip_8 ydaymin ${SUBSETFILE} ${OUTFILE}
+              echo
+                   cdo  -O -z zip_8 ydaymin ${SUBSETFILE} ${OUTFILE}
+              echo
+
+              if [[ ${PAR} == "pr" ]]; then
+                echo
+                echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Min DOY Total Preciptation" ${OUTFILE}
+                echo
+                     ncatted -h -O -a     long_name,${VARNAME},m,c,"Min DOY Total Preciptation" ${OUTFILE}
+                echo
+                echo ncatted -h -O -a   description,${VARNAME},m,c,"Min DOY Total Preciptation" ${OUTFILE}
+                echo
+                     ncatted -h -O -a   description,${VARNAME},m,c,"Min DOY Total Preciptation" ${OUTFILE}
+                echo
+              fi
+
+              if [[ ${PAR} == "tasmin" ]]; then
+
+                echo
+                echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Min DOY Min Daily Temperature" ${OUTFILE}
+                echo
+                     ncatted -h -O -a     long_name,${VARNAME},m,c,"Min DOY Min Daily Temperature" ${OUTFILE}
+
+                echo
+                echo ncatted -h -O -a   description,${VARNAME},m,c,"Min DOY Min Daily Temperature" ${OUTFILE}
+                echo
+                     ncatted -h -O -a   description,${VARNAME},m,c,"Min DOY Min Daily Temperature" ${OUTFILE}
+                echo
+              fi
+
+              if [[ ${PAR} == "tasmax" ]]; then
+
+                echo
+                echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Min DOY Max Daily Temperature" ${OUTFILE}
+                echo
+                     ncatted -h -O -a     long_name,${VARNAME},m,c,"Min DOY Max Daily Temperature" ${OUTFILE}
+
+                echo
+                echo ncatted -h -O -a   description,${VARNAME},m,c,"Min DOY Max Daily Temperature" ${OUTFILE}
+                echo
+                     ncatted -h -O -a   description,${VARNAME},m,c,"Min DOY Max Daily Temperature" ${OUTFILE}
+                echo
+              fi
+
+
+
+
+              ##
+              ##  CALCULATE DOY Max
+              ##
+
+              export OUTFILE=${CLIPPED_OUTDIR_D}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_DOY_P100.nc
+              export MAXFILE=${OUTFILE}
+              echo
+              echo processing ${OUTFILE}
+              echo
+              echo Processing ${PAR}_${ENS}_${SCEN} ydaymax ${START_DATE} - ${END_DATE}
+              echo
+              echo cdo  -O -z zip_8 ydaymax ${SUBSETFILE} ${OUTFILE}
+              echo
+                   cdo  -O -z zip_8 ydaymax ${SUBSETFILE} ${OUTFILE}
+              echo
+
+              if [[ ${PAR} == "pr" ]]; then
+                echo
+                echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Max DOY Total Preciptation" ${OUTFILE}
+                echo
+                     ncatted -h -O -a     long_name,${VARNAME},m,c,"Max DOY Total Preciptation" ${OUTFILE}
+                echo
+                echo ncatted -h -O -a   description,${VARNAME},m,c,"Max DOY Total Preciptation" ${OUTFILE}
+                echo
+                     ncatted -h -O -a   description,${VARNAME},m,c,"Max DOY Total Preciptation" ${OUTFILE}
+                echo
+              fi
+
+              if [[ ${PAR} == "tasmin" ]]; then
+
+                echo
+                echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Max DOY Min Daily Temperature" ${OUTFILE}
+                echo
+                     ncatted -h -O -a     long_name,${VARNAME},m,c,"Max DOY Min Daily Temperature" ${OUTFILE}
+
+                echo
+                echo ncatted -h -O -a   description,${VARNAME},m,c,"Max DOY Min Daily Temperature" ${OUTFILE}
+                echo
+                     ncatted -h -O -a   description,${VARNAME},m,c,"Max DOY Min Daily Temperature" ${OUTFILE}
+                echo
+              fi
+
+              if [[ ${PAR} == "tasmax" ]]; then
+
+                echo
+                echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Max DOY Max Daily Temperature" ${OUTFILE}
+                echo
+                     ncatted -h -O -a     long_name,${VARNAME},m,c,"Max DOY Max Daily Temperature" ${OUTFILE}
+
+                echo
+                echo ncatted -h -O -a   description,${VARNAME},m,c,"Max DOY Max Daily Temperature" ${OUTFILE}
+                echo
+                     ncatted -h -O -a   description,${VARNAME},m,c,"Max DOY Max Daily Temperature" ${OUTFILE}
+                echo
+              fi
+
+
+              ##
+              ##  CALCULATE DOY Ptiles
+              ##
+
+              for PER in "${PERCENTILE[@]}"
+              do
+                ##
+                ##  CALCULATE DOY Ptiles
+                ##
+
+                export OUTFILE=${CLIPPED_OUTDIR_D}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_DOY_P${PER}.nc
+
+                echo
+                echo processing ${OUTFILE}
+                echo
+                echo Processing ${PAR}_${ENS}_${SCEN} ydaypctl @ ${PER}% ${START_DATE} - ${END_DATE}
+                echo
+                echo cdo  -O -z zip_8 ydaypctl ${SUBSETFILE} ${MINFILE} ${MAXFILE} ${OUTFILE}
+                echo
+                     cdo  -O -z zip_8 ydaypctl ${SUBSETFILE} ${MINFILE} ${MAXFILE} ${OUTFILE}
+                echo
+
+                if [[ ${PAR} == "pr" ]]; then
+                  echo
+                  echo ncatted -h -O -a     long_name,${VARNAME},m,c,'"'P${PER} DOY Total Preciptation'"' ${OUTFILE}
+                  echo
+                       ncatted -h -O -a     long_name,${VARNAME},m,c,'"'P${PER} DOY Total Preciptation'"' ${OUTFILE}
+                  echo
+                  echo ncatted -h -O -a   description,${VARNAME},m,c,'"'P${PER} DOY Total Preciptation'"' ${OUTFILE}
+                  echo
+                       ncatted -h -O -a   description,${VARNAME},m,c,'"'P${PER} DOY Total Preciptation'"' ${OUTFILE}
+                  echo
+                fi
+
+                if [[ ${PAR} == "tasmin" ]]; then
+
+                  echo
+                  echo ncatted -h -O -a     long_name,${VARNAME},m,c,'"'P${PER} DOY Min Daily Temperature'"' ${OUTFILE}
+                  echo
+                       ncatted -h -O -a     long_name,${VARNAME},m,c,'"'P${PER} DOY Min Daily Temperature'"' ${OUTFILE}
+                  echo
+                  echo ncatted -h -O -a   description,${VARNAME},m,c,'"'P${PER} DOY Min Daily Temperature'"' ${OUTFILE}
+                  echo
+                       ncatted -h -O -a   description,${VARNAME},m,c,'"'P${PER} DOY Min Daily Temperature'"' ${OUTFILE}
+                  echo
+                fi
+
+                if [[ ${PAR} == "tasmax" ]]; then
+
+                  echo
+                  echo ncatted -h -O -a     long_name,${VARNAME},m,c,'"'P${PER} DOY Max Daily Temperature'"' ${OUTFILE}
+                  echo
+                       ncatted -h -O -a     long_name,${VARNAME},m,c,'"'P${PER} DOY Max Daily Temperature'"' ${OUTFILE}
+                  echo
+                  echo ncatted -h -O -a   description,${VARNAME},m,c,'"'P${PER} DOY Max Daily Temperature'"' ${OUTFILE}
+                  echo
+                       ncatted -h -O -a   description,${VARNAME},m,c,'"'P${PER} DOY Max Daily Temperature'"' ${OUTFILE}
+                  echo
+                fi
+              done
+
+
               rm -frv ./cdo_period_subset.nc
 
            fi
 
            echo
+
+        done #parameter
+
+
+
+
+        # process daily average temperature
+
+        export VARNAME="tasavg"
+
+        export CLIPPED_OUTDIR_D=${CLIPPED_OUTDIR_ROOT}/DAILY/tasavg
+
+        mkdir -v -p ${CLIPPED_OUTDIR_D}
+        
+        rm -frv ./cdo_period_subset.nc
+
+        export SUBSETFILE="./cdo_period_subset.nc"
+
+        ncflint -w 0.5,0.5 ./TEMP_tasmin.nc ./TEMP_tasmax.nc ${SUBSETFILE}
+
+        ##
+        ##  CALCULATE DOY MEANS
+        ##
+
+        export OUTFILE=${CLIPPED_OUTDIR_D}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_DOY_AVERAGES.nc
+        echo
+        echo processing ${OUTFILE}
+        echo
+        echo Processing ${PAR}_${ENS}_${SCEN} ydaymean ${START_DATE} - ${END_DATE}
+        echo
+        echo cdo  -O -z zip_8 ydaymean ${SUBSETFILE} ${OUTFILE}
+        echo
+             cdo  -O -z zip_8 ydaymean ${SUBSETFILE} ${OUTFILE}
+        echo
+
+
+
+          echo
+          echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean DOY Mean Daily Temperature" ${OUTFILE}
+          echo
+               ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean DOY Mean Daily Temperature" ${OUTFILE}
+          echo
+          echo ncatted -h -O -a   description,${VARNAME},m,c,"Mean DOY Mean Daily Temperature" ${OUTFILE}
+          echo
+               ncatted -h -O -a   description,${VARNAME},m,c,"Mean DOY Mean Daily Temperature" ${OUTFILE}
+          echo
+
+
+
+        ##
+        ##  CALCULATE DOY Min
+        ##
+
+        export OUTFILE=${CLIPPED_OUTDIR_D}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_DOY_P000.nc
+        export MINFILE=${OUTFILE}
+        echo
+        echo processing ${OUTFILE}
+        echo
+        echo Processing ${PAR}_${ENS}_${SCEN} ydaymin ${START_DATE} - ${END_DATE}
+        echo
+        echo cdo  -O -z zip_8 ydaymin ${SUBSETFILE} ${OUTFILE}
+        echo
+             cdo  -O -z zip_8 ydaymin ${SUBSETFILE} ${OUTFILE}
+        echo
+
+          echo
+          echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Min DOY Mean Daily Temperature" ${OUTFILE}
+          echo
+               ncatted -h -O -a     long_name,${VARNAME},m,c,"Min DOY Mean Daily Temperature" ${OUTFILE}
+
+          echo
+          echo ncatted -h -O -a   description,${VARNAME},m,c,"Min DOY Mean Daily Temperature" ${OUTFILE}
+          echo
+               ncatted -h -O -a   description,${VARNAME},m,c,"Min DOY Mean Daily Temperature" ${OUTFILE}
+          echo
+
+
+
+
+        ##
+        ##  CALCULATE DOY Max
+        ##
+
+        export OUTFILE=${CLIPPED_OUTDIR_D}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_DOY_P100.nc
+        export MAXFILE=${OUTFILE}
+        echo
+        echo processing ${OUTFILE}
+        echo
+        echo Processing ${PAR}_${ENS}_${SCEN} ydaymax ${START_DATE} - ${END_DATE}
+        echo
+        echo cdo  -O -z zip_8 ydaymax ${SUBSETFILE} ${OUTFILE}
+        echo
+             cdo  -O -z zip_8 ydaymax ${SUBSETFILE} ${OUTFILE}
+        echo
+
+          echo
+          echo cp -frv ${SUBSETFILE} ./TEMP_tasmin.nc
+          echo
+               cp -frv ${SUBSETFILE} ./TEMP_tasmin.nc
+
+          echo
+          echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Max DOY Mean Daily Temperature" ${OUTFILE}
+          echo
+               ncatted -h -O -a     long_name,${VARNAME},m,c,"Max DOY Mean Daily Temperature" ${OUTFILE}
+          echo
+          echo ncatted -h -O -a   description,${VARNAME},m,c,"Max DOY Mean Daily Temperature" ${OUTFILE}
+          echo
+               ncatted -h -O -a   description,${VARNAME},m,c,"Max DOY Mean Daily Temperature" ${OUTFILE}
+          echo
+
+
+        ##
+        ##  CALCULATE DOY Ptiles
+        ##
+
+        for PER in "${PERCENTILE[@]}"
+        do
+          ##
+          ##  CALCULATE DOY Ptiles
+          ##
+
+          export OUTFILE=${CLIPPED_OUTDIR_D}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_DOY_P${PER}.nc
+
+          echo
+          echo processing ${OUTFILE}
+          echo
+          echo Processing ${PAR}_${ENS}_${SCEN} ydaypctl @ ${PER}% ${START_DATE} - ${END_DATE}
+          echo
+          echo cdo  -O -z zip_8 ydaypctl ${SUBSETFILE} ${MINFILE} ${MAXFILE} ${OUTFILE}
+          echo
+               cdo  -O -z zip_8 ydaypctl ${SUBSETFILE} ${MINFILE} ${MAXFILE} ${OUTFILE}
+          echo
+
+
+            echo
+            echo ncatted -h -O -a     long_name,${VARNAME},m,c,'"'P${PER} DOY Mean Daily Temperature'"' ${OUTFILE}
+            echo
+                 ncatted -h -O -a     long_name,${VARNAME},m,c,'"'P${PER} DOY Mean Daily Temperature'"' ${OUTFILE}
+            echo
+            echo ncatted -h -O -a   description,${VARNAME},m,c,'"'P${PER} DOY Mean Daily Temperature'"' ${OUTFILE}
+            echo
+                 ncatted -h -O -a   description,${VARNAME},m,c,'"'P${PER} DOY Mean Daily Temperature'"' ${OUTFILE}
+            echo
+
         done
+
+        rm -frv ./TEMP_tasmin.nc ./TEMP_tasmax.nc ./cdo_period_subset.nc
+
         echo
 
   done
