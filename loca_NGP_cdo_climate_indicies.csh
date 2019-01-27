@@ -80,8 +80,9 @@ HOST_NAME=`hostname`
 
 
 
-   export ENS=${ENSEMBLE[0]}
-
+    ENS=${ENSEMBLE[0]}
+    YEAR=1950
+    SCEN="historical"
 
 for ENS in "${ENSEMBLE[@]}"
 do
@@ -93,7 +94,6 @@ do
   echo
 
   rm -frv ./CLIM_TMIN_P010.nc ./CLIM_TMIN_P090.nc  ./CLIM_TMIN_MEAN.nc
-  rm -frv ./CLIM_TMAX_P010.nc ./CLIM_TMAX_P090.nc  ./CLIM_TMAX_MEAN.nc
 
   CLIM_TMIN_P010=${CLIPPED_CLIMATOLOGY_ROOT}/tasmin/${DATASET}_tasmin_${ENS}_historical_${CLIM_PERIOD}_CDO_DOY_P010.nc
   CLIM_TMIN_P090=${CLIPPED_CLIMATOLOGY_ROOT}/tasmin/${DATASET}_tasmin_${ENS}_historical_${CLIM_PERIOD}_CDO_DOY_P090.nc
@@ -112,6 +112,9 @@ do
   CLIM_TMAX_P090=${CLIPPED_CLIMATOLOGY_ROOT}/tasmax/${DATASET}_tasmax_${ENS}_historical_${CLIM_PERIOD}_CDO_DOY_P090.nc
   CLIM_TMAX_MEAN=${CLIPPED_CLIMATOLOGY_ROOT}/tasmax/${DATASET}_tasmax_${ENS}_historical_${CLIM_PERIOD}_CDO_DOY_AVERAGES.nc
 
+  rm -frv ./CLIM_TMAX_P010.nc ./CLIM_TMAX_P090.nc  ./CLIM_TMAX_MEAN.nc
+
+
   cdo -O -z zip_8 addc,273.15 ${CLIM_TMAX_P010} ./CLIM_TMAX_P010.nc
   cdo -O -z zip_8 addc,273.15 ${CLIM_TMAX_P090} ./CLIM_TMAX_P090.nc
   cdo -O -z zip_8 addc,273.15 ${CLIM_TMAX_MEAN} ./CLIM_TMAX_MEAN.nc
@@ -121,7 +124,10 @@ do
   CLIM_TMAX_MEAN=./CLIM_TMAX_MEAN.nc
 
   cdo  -O -z zip_8 ensmean ${CLIM_TMIN_MEAN} ${CLIM_TMAX_MEAN} ./CLIM_TAVG_MEAN.nc
+
   CLIM_TAVG_MEAN=./CLIM_TAVG_MEAN.nc
+
+  rm -frv ./CLIM_PREC_P075.nc ./CLIM_PREC_P090.nc  ./CLIM_PREC_P095.nc  ./CLIM_PREC_P099.nc
 
 
   CLIM_PREC_P075=${CLIPPED_CLIMATOLOGY_ROOT}/pr/${DATASET}_pr_${ENS}_historical_${CLIM_PERIOD}_CDO_DOY_P075.nc
@@ -183,14 +189,18 @@ do
 
 
 
-        cdo -O -z zip_8 addc,273.15 ${INPUT_SUBSET_TMAX} ./INPUT_SUBSET_TMAX.nc
-        cdo -O -z zip_8 addc,273.15 ${INPUT_SUBSET_TMIN} ./INPUT_SUBSET_TMIN.nc
+        cdo -O -z zip_8 addc,273.15 ${INPUT_SUBSET_TMAX}  ./deleteme.nc
+        mv -v ./deleteme.nc ./INPUT_SUBSET_TMAX.nc
+
+        cdo -O -z zip_8 addc,273.15 ${INPUT_SUBSET_TMIN}  ./deleteme.nc
+        mv -v ./deleteme.nc ./INPUT_SUBSET_TMIN.nc
+
 
         INPUT_SUBSET_TMAX=./INPUT_SUBSET_TMAX.nc
         INPUT_SUBSET_TMIN=./INPUT_SUBSET_TMIN.nc
 
-        cdo -O -z zip_8 ensmean ${INPUT_SUBSET_TMIN} ${INPUT_SUBSET_TMAX} ./INPUT_TAVG_FILE.nc
-        INPUT_SUBSET_TMAX=./INPUT_TAVG_FILE.nc
+        cdo -O -z zip_8 ensmean ${INPUT_SUBSET_TMAX} ${INPUT_SUBSET_TMIN} ./INPUT_SUBSET_TAVG.nc
+        INPUT_SUBSET_TAVG=./INPUT_SUBSET_TAVG.nc
 
 
 
