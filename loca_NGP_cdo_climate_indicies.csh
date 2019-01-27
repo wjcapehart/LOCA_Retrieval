@@ -256,16 +256,16 @@ do
    echo
    PARAM="ECAFD"
    OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
-   echo cdo -O -z zip_8 eca_fd ${INPUT_SUBSET_PREC} ${CLIM_PREC_P075} ${OUTCI_FILE}
-        cdo -O -z zip_8 eca_fd ${INPUT_SUBSET_PREC} ${CLIM_PREC_P075} ${OUTCI_FILE}
+   echo cdo -O -z zip_8 eca_fd ${INPUT_SUBSET_TAVG} ${OUTCI_FILE}
+        cdo -O -z zip_8 eca_fd ${INPUT_SUBSET_TAVG} ${OUTCI_FILE}
 
    ### 2.0.9 ECAGSL - Thermal Growing season length index
    # needs average temperature
    echo
    PARAM="ECAGSL"
-   OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
-   echo cdo -O -z zip_8 eca_gsl ${INPUT_SUBSET_TMAX} ./masked.nc ${CLIM_TMAX_MEAN} ${OUTCI_FILE}
-        cdo -O -z zip_8 eca_gsl ${INPUT_SUBSET_TMAX} ./masked.nc ${CLIM_TMAX_MEAN} ${OUTCI_FILE}
+   # OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
+   echo cdo -O -z zip_8 eca_gsl ${INPUT_SUBSET_TAVG} ./mask_01.nc ${CLIM_TMAX_MEAN} ${OUTCI_FILE}
+        cdo -O -z zip_8 eca_gsl ${INPUT_SUBSET_TAVG} ./mask_01.nc ${CLIM_TMAX_MEAN} ${OUTCI_FILE}
 
 
    ### 2.0.10 ECAHD - Heating degree days per time period
