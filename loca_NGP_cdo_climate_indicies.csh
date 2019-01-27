@@ -264,8 +264,8 @@ do
    echo
    PARAM="ECAGSL"
    OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
-   echo cdo -O -z zip_8 eca_gsl ${INPUT_SUBSET_TMAX} ${CLIM_TMAX_MEAN} ${OUTCI_FILE}
-        cdo -O -z zip_8 eca_gsl ${INPUT_SUBSET_TMAX} ${CLIM_TMAX_MEAN} ${OUTCI_FILE}
+   echo cdo -O -z zip_8 eca_gsl ${INPUT_SUBSET_TMAX} ./masked.nc ${CLIM_TMAX_MEAN} ${OUTCI_FILE}
+        cdo -O -z zip_8 eca_gsl ${INPUT_SUBSET_TMAX} ./masked.nc ${CLIM_TMAX_MEAN} ${OUTCI_FILE}
 
 
    ### 2.0.10 ECAHD - Heating degree days per time period
