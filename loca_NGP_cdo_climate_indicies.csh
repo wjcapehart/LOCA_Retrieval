@@ -55,7 +55,42 @@ HOST_NAME=`hostname`
                           "NorESM1-M_r1i1p1"
                           "bcc-csm1-1-m_r1i1p1" )
 
-
+    declare -a CL_INDEX=(   "ECACDD"
+                            "ECACFD"
+                            "ECACSU"
+                            "ECACWD"
+                            "ECACWDI"
+                            "ECACWFI"
+                            "ECAETR"
+                            "ECAFD"
+                            "ECAGSL"
+                            "ECAHD"
+                            "ECAHWDI"
+                            "ECAHWFI"
+                            "ECAID"
+                            "ECAR75P"
+                            "ECAR75PTOT"
+                            "ECAR90P"
+                            "ECAR90PTOT"
+                            "ECAR90P"
+                            "ECAR90PTOT"
+                            "ECAR90P"
+                            "ECAR90PTOT"
+                            "ECAPD010"
+                            "ECAPD020"
+                            "ECARR1"
+                            "MONMAX"
+                            "ECARX5DAY"
+                            "ECAR050-5DAY"
+                            "ECAR025-5DAY"
+                            "ECASDII"
+                            "ECATG10P"
+                            "ECATG90P"
+                            "ECATN10P"
+                            "ECATN90P"
+                            "ECATR"
+                            "ECATX10P"
+                            "ECATX90P" )
 
 
    export       DATASET="LOCA_NGP"
@@ -464,6 +499,39 @@ do
   echo
   echo @
   echo @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+  for PARAM in "${CL_INDEX[@]}"
+  do
+
+    echo . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    echo .
+    echo . Processing ${ENS} : ${PARAM}
+    echo .
+    echo
+
+    for SCEN in "${SCENARIO[@]}"
+    do
+
+      INCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_*.nc
+
+      OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}.nc
+
+      echo $OUTCI_FILE
+
+      ncrcat  -O --deflate 8 -h ${INCI_FILE} ${OUTCI_FILE}
+      rm -frv  ${INCI_FILE}
+
+    done
+
+    echo
+    echo .
+    echo . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+
+  done
+
+
 
 
 done
