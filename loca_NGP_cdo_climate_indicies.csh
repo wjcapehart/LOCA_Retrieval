@@ -241,14 +241,16 @@ do
 
     ### 2.0.1 ECACDD - Consecutive dry days index per time period
     echo
-    OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_ECACDD_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
+    PARAM="ECACDD"
+    OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
     echo cdo -O -z zip_8 eca_cdd ${INPUT_SUBSET_PREC} ${OUTCI_FILE}
          cdo -O -z zip_8 eca_cdd ${INPUT_SUBSET_PREC} ${OUTCI_FILE}
 
 
      ### 2.0.2 ECACFD - Consecutive frost days index per time period
      echo
-     OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_ECACFD_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
+     PARAM="ECACFD"
+     OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
      echo cdo -O -z zip_8 eca_cfd ${INPUT_SUBSET_TMIN} ${OUTCI_FILE}
           cdo -O -z zip_8 eca_cfd ${INPUT_SUBSET_TMIN} ${OUTCI_FILE}
 
@@ -256,7 +258,8 @@ do
 
      ### 2.0.3 ECACSU - Consecutive summer days index per time period
      echo
-     OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_ECACSU_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
+     PARAM="ECACSU"
+     OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
      echo cdo -O -z zip_8 eca_csu ${INPUT_SUBSET_TMAX} ${OUTCI_FILE}
           cdo -O -z zip_8 eca_csu ${INPUT_SUBSET_TMAX} ${OUTCI_FILE}
 
@@ -264,14 +267,16 @@ do
 
      ### 2.0.4 ECACWD - Consecutive wet days index per time period
      echo
-     OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_ECACWD_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
+     PARAM="ECACWD"
+     OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
      echo cdo -O -z zip_8 eca_cwd ${INPUT_SUBSET_PREC} ${OUTCI_FILE}
           cdo -O -z zip_8 eca_cwd ${INPUT_SUBSET_PREC} ${OUTCI_FILE}
 
 
      ### 2.0.5 ECACWDI - Cold wave duration index w.r.t. mean of reference period
      echo
-     OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_ECACWDI_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
+     PARAM="ECACWDI"
+     OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
      echo cdo -O -z zip_8 eca_cwdi ${INPUT_SUBSET_TMIN} ${CLIM_TMIN_MEAN} ${OUTCI_FILE}
           cdo -O -z zip_8 eca_cwdi ${INPUT_SUBSET_TMIN} ${CLIM_TMIN_MEAN} ${OUTCI_FILE}
 
@@ -283,6 +288,7 @@ do
     ### 2.0.7 ECAETR - Intra-period extreme temperature range
     echo
     OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_ECAETR_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
+    OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
     echo cdo -O -z zip_8 eca_etr ${INPUT_SUBSET_TMAX} ${INPUT_SUBSET_TMIN} ${OUTCI_FILE}
          cdo -O -z zip_8 eca_etr ${INPUT_SUBSET_TMAX} ${INPUT_SUBSET_TMIN} ${OUTCI_FILE}
 
@@ -522,7 +528,7 @@ do
       echo
       rm -frv ${INCI_FILE}
       echo
-      
+
     done
 
     echo
