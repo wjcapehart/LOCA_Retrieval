@@ -517,11 +517,12 @@ do
 
       OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}.nc
 
-      echo $OUTCI_FILE
-
+      echo
       ncrcat  -O --deflate 8 -h ${INCI_FILE} ${OUTCI_FILE}
-      rm -frv  ${INCI_FILE}
-
+      echo
+      rm -frv ${INCI_FILE}
+      echo
+      
     done
 
     echo
