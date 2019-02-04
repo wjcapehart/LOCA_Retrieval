@@ -158,11 +158,24 @@ do
   CLIM_TMAX_P090=./CLIM_TMAX_P090.nc
   CLIM_TMAX_MEAN=./CLIM_TMAX_MEAN.nc
 
-  cdo  -O -z zip_8 ensmean ${CLIM_TMIN_MEAN} ${CLIM_TMAX_MEAN} ./CLIM_TAVG_MEAN.nc
 
+  rm -frv ./CLIM_TAVG_P010.nc ./CLIM_TAVG_P090.nc  ./CLIM_TAVG_MEAN.nc
+
+  CLIM_TAVG_P010=${CLIPPED_CLIMATOLOGY_ROOT}/tasavg/${DATASET}_tasavg_${ENS}_historical_${CLIM_PERIOD}_CDO_DOY_P010.nc
+  CLIM_TAVG_P090=${CLIPPED_CLIMATOLOGY_ROOT}/tasavg/${DATASET}_tasavg_${ENS}_historical_${CLIM_PERIOD}_CDO_DOY_P090.nc
+  CLIM_TAVG_MEAN=${CLIPPED_CLIMATOLOGY_ROOT}/tasavg/${DATASET}_tasavg_${ENS}_historical_${CLIM_PERIOD}_CDO_DOY_AVERAGES.nc
+
+  cdo -O -z zip_8 addc,273.15 ${CLIM_TAVG_P010} ./CLIM_TAVG_P010.nc
+  cdo -O -z zip_8 addc,273.15 ${CLIM_TAVG_P090} ./CLIM_TAVG_P090.nc
+  cdo -O -z zip_8 addc,273.15 ${CLIM_TAVG_MEAN} ./CLIM_TAVG_MEAN.nc
+
+  CLIM_TAVG_P010=./CLIM_TAVG_P010.nc
+  CLIM_TAVG_P090=./CLIM_TAVG_P090.nc
   CLIM_TAVG_MEAN=./CLIM_TAVG_MEAN.nc
 
+
   rm -frv ./CLIM_PREC_P075.nc ./CLIM_PREC_P090.nc  ./CLIM_PREC_P095.nc  ./CLIM_PREC_P099.nc
+
 
 
   CLIM_PREC_P075=${CLIPPED_CLIMATOLOGY_ROOT}/pr/${DATASET}_pr_${ENS}_historical_${CLIM_PERIOD}_CDO_DOY_P075.nc
@@ -289,8 +302,11 @@ do
 
 
       ### 2.0.6 ECACWFI - Cold-spell days index w.r.t. 10th percentile of reference period
-      #  Needs Average Temperature...
-
+      echo
+      PARAM="ECACWFI"
+      OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
+      echo cdo -O -z zip_8 eca_cwfi ${INPUT_SUBSET_TAVG} ${CLIM_TAVG_P010} ${OUTCI_FILE}
+           cdo -O -z zip_8 eca_cwfi ${INPUT_SUBSET_TAVG} ${CLIM_TAVG_P010} ${OUTCI_FILE}
 
       ### 2.0.7 ECAETR - Intra-period extreme temperature range
       echo
@@ -308,12 +324,11 @@ do
           cdo -O -z zip_8 eca_fd ${INPUT_SUBSET_TAVG} ${OUTCI_FILE}
 
      ### 2.0.9 ECAGSL - Thermal Growing season length index
-     # needs average temperature
      echo
      PARAM="ECAGSL"
-     # OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
-     echo cdo -O -z zip_8 eca_gsl ${INPUT_SUBSET_TAVG} ./mask_01.nc ${CLIM_TMAX_MEAN} ${OUTCI_FILE}
-          cdo -O -z zip_8 eca_gsl ${INPUT_SUBSET_TAVG} ./mask_01.nc ${CLIM_TMAX_MEAN} ${OUTCI_FILE}
+     OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
+     echo cdo -O -z zip_8 eca_gsl ${INPUT_SUBSET_TAVG} ./mask_01.nc ${OUTCI_FILE}
+          cdo -O -z zip_8 eca_gsl ${INPUT_SUBSET_TAVG} ./mask_01.nc ${OUTCI_FILE}
 
 
      ### 2.0.10 ECAHD - Heating degree days per time period
@@ -321,8 +336,8 @@ do
      echo
      PARAM="ECAHD"
      OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
-     echo cdo -O -z zip_8 eca_hd ${INPUT_SUBSET_TMAX} ${OUTCI_FILE}
-          cdo -O -z zip_8 eca_hd ${INPUT_SUBSET_TMAX} ${OUTCI_FILE}
+     echo cdo -O -z zip_8 eca_hd ${INPUT_SUBSET_TAVG} ${OUTCI_FILE}
+          cdo -O -z zip_8 eca_hd ${INPUT_SUBSET_TAVG} ${OUTCI_FILE}
 
      # 2.0.11 ECAHWDI - Heat wave duration index w.r.t. mean of reference period
      echo
@@ -332,7 +347,11 @@ do
           cdo -O -z zip_8 eca_hwdi ${INPUT_SUBSET_TMAX} ${CLIM_TMAX_MEAN} ${OUTCI_FILE}
 
       # 2.0.12 ECAHWFI - Warm spell days index w.r.t. 90th percentile of reference period
-      # needs average temperature
+      echo
+      PARAM="ECAHWFI"
+      OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
+      echo cdo -O -z zip_8 eca_hwfi ${INPUT_SUBSET_TAVG} ${CLIM_TAVG_P090} ${OUTCI_FILE}
+           cdo -O -z zip_8 eca_hwfi ${INPUT_SUBSET_TAVG} ${CLIM_TAVG_P090} ${OUTCI_FILE}
 
       # 2.0.13 ECAID - Ice days index per time period
       echo
@@ -458,11 +477,18 @@ do
              cdo -O -z zip_8 eca_su ${INPUT_SUBSET_TMAX} ${OUTCI_FILE}
 
        # 2.0.28 ECATG10P - Cold days percent w.r.t. 10th percentile of reference period
-       # needs average temp
+       echo
+       PARAM="ECATG10P"
+       OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
+       echo cdo -O -z zip_8 eca_tg10p ${INPUT_SUBSET_TAVG} ${CLIM_TAVG_P010} ${OUTCI_FILE}
+            cdo -O -z zip_8 eca_tg10p ${INPUT_SUBSET_TAVG} ${CLIM_TAVG_P010} ${OUTCI_FILE}
 
        # 2.0.29 ECATG90P - Warm days percent w.r.t. 90th percentile of reference period
-       # needs average temp
-
+       echo
+       PARAM="ECATG90P"
+       OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
+       echo cdo -O -z zip_8 eca_tg90p ${INPUT_SUBSET_TAVG} ${CLIM_TAVG_P090} ${OUTCI_FILE}
+            cdo -O -z zip_8 eca_tg90p ${INPUT_SUBSET_TAVG} ${CLIM_TAVG_P090} ${OUTCI_FILE}
        # 2.0.30 ECATN10P - Cold nights percent w.r.t. 10th percentile of reference period
        echo
        PARAM="ECATN10P"
