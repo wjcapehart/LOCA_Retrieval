@@ -109,8 +109,7 @@ do
 
    PAR="tasavg"
 
-   for PAR in "${PARAM[@]}"
-   do
+
       echo =============================================================
       echo
 
@@ -325,7 +324,6 @@ do
       echo
    done
    echo
-done
 
 
 
