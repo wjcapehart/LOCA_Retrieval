@@ -65,7 +65,7 @@ declare -a PERCENTILE=( 005 010         025                 050                 
 
    export ENS=${ENSEMBLE[0]}
    export PAR=${PARAM[0]}
-   export PTILE=${PERCENTILE[9]}
+   export PTILE=${PERCENTILE[0]}
    export SCEN=${SCENARIO[0]}
 
 for SCEN in "${SCENARIO[@]}"
@@ -136,7 +136,6 @@ do
 
          rm -frv ./cdo_period_subset.nc
 
-         export  INFILE=${CLIPPED_INPREFIX}_${PAR}_${ENS}_${SCEN}.nc
 
          export  INTMAX=${CLIPPED_INDIR_ROOT}/${SCEN}/tasmax/${DATASETPREFIX}_tasmax_${ENS}_${SCEN}.nc
          export  INTMIN=${CLIPPED_INDIR_ROOT}/${SCEN}/tasmin/${DATASETPREFIX}_tasmin_${ENS}_${SCEN}.nc
@@ -198,7 +197,7 @@ do
             ##
             ##  CALCULATE DOY MEANS
             ##
-\
+
 
             export OUTFILE=${CLIPPED_OUTDIR_D}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_DOY_AVERAGES.nc
             echo
@@ -324,6 +323,7 @@ do
       echo
    done
    echo
+done
 
 
 
