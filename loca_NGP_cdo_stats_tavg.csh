@@ -10,6 +10,9 @@ HOST_NAME=`hostname`
   declare -a    PARAM=( "tasavg" )
   declare -a SCENARIO=( "historical")
 
+  rm -frv ./TEMP_tasmin.nc ./TEMP_tasmax.nc ./cdo_period_subset.nc ./tasmax_period_subset.nc ./tasmin_period_subset.nc
+
+
 
   # setting the Setting the Available ensembles
   #   currently only those members that have hits
@@ -312,7 +315,7 @@ do
 
               done
 
-              rm -frv ./TEMP_tasmin.nc ./TEMP_tasmax.nc ./cdo_period_subset.nc
+              rm -frv ./TEMP_tasmin.nc ./TEMP_tasmax.nc ./cdo_period_subset.nc ./tasmax_period_subset.nc ./tasmin_period_subset.nc
 
               echo
 
