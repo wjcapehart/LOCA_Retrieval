@@ -115,7 +115,7 @@ HOST_NAME=`hostname`
 
 
 
-    ENS=${ENSEMBLE[0]}
+    ENS="ACCESS1-0_r1i1p1"
     YEAR=1950
     SCEN="historical"
 
@@ -213,10 +213,12 @@ do
     for YEAR in `seq ${START_YEAR} ${END_YEAR}`
     do
 
+      export START_DATE=${YEAR}-01-01
+
+      export END_DATE=${YEAR}-12-31
 
 
       echo ---- Processing Year ${START_DATE} - ${END_DATE} ----
-
 
 
 
@@ -310,7 +312,7 @@ do
 
       ### 2.0.7 ECAETR - Intra-period extreme temperature range
       echo
-      OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_ECAETR_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
+      PARAM="ECAETR"
       OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
       echo cdo -O -z zip_8 eca_etr ${INPUT_SUBSET_TMAX} ${INPUT_SUBSET_TMIN} ${OUTCI_FILE}
            cdo -O -z zip_8 eca_etr ${INPUT_SUBSET_TMAX} ${INPUT_SUBSET_TMIN} ${OUTCI_FILE}
