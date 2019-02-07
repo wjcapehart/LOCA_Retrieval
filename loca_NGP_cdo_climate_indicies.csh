@@ -200,7 +200,7 @@ do
   for SCEN in "${SCENARIO[@]}"
   do
 
-    if [ ${SCEN} -eq "historical" ]
+    if [[ ${SCEN} -eq "historical" ]]
     then
       START_YEAR=1950
       END_YEAR=2005
