@@ -359,8 +359,8 @@ do
       echo
       PARAM="ECAID"
       OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
-      echo cdo -O -z zip_8 eca_hwdi ${INPUT_SUBSET_TMAX} ${OUTCI_FILE}
-           cdo -O -z zip_8 eca_hwdi ${INPUT_SUBSET_TMAX} ${OUTCI_FILE}
+      echo cdo -O -z zip_8 eca_id ${INPUT_SUBSET_TMAX} ${OUTCI_FILE}
+           cdo -O -z zip_8 eca_id ${INPUT_SUBSET_TMAX} ${OUTCI_FILE}
 
       # 2.0.14 ECAR75P - Moderate wet days w.r.t. 75th percentile of reference period
       echo
@@ -491,19 +491,21 @@ do
        OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
        echo cdo -O -z zip_8 eca_tg90p ${INPUT_SUBSET_TAVG} ${CLIM_TAVG_P090} ${OUTCI_FILE}
             cdo -O -z zip_8 eca_tg90p ${INPUT_SUBSET_TAVG} ${CLIM_TAVG_P090} ${OUTCI_FILE}
+
+
        # 2.0.30 ECATN10P - Cold nights percent w.r.t. 10th percentile of reference period
-       echo
-       PARAM="ECATN10P"
-       OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
-       echo cdo -O -z zip_8 eca_tn10p ${INPUT_SUBSET_TMIN} ${CLIM_TMIN_P010} ${OUTCI_FILE}
-            cdo -O -z zip_8 eca_tn10p ${INPUT_SUBSET_TMIN} ${CLIM_TMIN_P010} ${OUTCI_FILE}
+       #echo
+       #PARAM="ECATN10P"
+       #OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
+       #echo cdo -O -z zip_8 eca_tn10p ${INPUT_SUBSET_TMIN} ${CLIM_TMIN_P010} ${OUTCI_FILE}
+       #    cdo -O -z zip_8 eca_tn10p ${INPUT_SUBSET_TMIN} ${CLIM_TMIN_P010} ${OUTCI_FILE}
 
         # 2.0.31 ECATN90P - Warm nights percent w.r.t. 90th percentile of reference period
-        echo
-        PARAM="ECATN90P"
-        OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
-        echo cdo -O -z zip_8 eca_tn90p ${INPUT_SUBSET_TMIN} ${CLIM_TMIN_P090} ${OUTCI_FILE}
-             cdo -O -z zip_8 eca_tn90p ${INPUT_SUBSET_TMIN} ${CLIM_TMIN_P090} ${OUTCI_FILE}
+        #echo
+        #PARAM="ECATN90P"
+        #OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
+        #echo cdo -O -z zip_8 eca_tn90p ${INPUT_SUBSET_TMIN} ${CLIM_TMIN_P090} ${OUTCI_FILE}
+        #     cdo -O -z zip_8 eca_tn90p ${INPUT_SUBSET_TMIN} ${CLIM_TMIN_P090} ${OUTCI_FILE}
 
          # 2.0.32 ECATR - Tropical nights index per time period
          echo
@@ -523,11 +525,11 @@ do
 
 
            # 2.0.34 ECATX90P - Very warm days percent w.r.t. 90th percentile of reference period
-           echo
-           PARAM="ECATX90P"
-           OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
-           echo cdo -O -z zip_8 eca_tx90p ${INPUT_SUBSET_TMAX} ${CLIM_TMAX_P090} ${OUTCI_FILE}
-                cdo -O -z zip_8 eca_tx90p ${INPUT_SUBSET_TMAX} ${CLIM_TMAX_P090} ${OUTCI_FILE}
+           #echo
+           #PARAM="ECATX90P"
+           #OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
+           #echo cdo -O -z zip_8 eca_tx90p ${INPUT_SUBSET_TMAX} ${CLIM_TMAX_P090} ${OUTCI_FILE}
+           #     cdo -O -z zip_8 eca_tx90p ${INPUT_SUBSET_TMAX} ${CLIM_TMAX_P090} ${OUTCI_FILE}
 
 
 
