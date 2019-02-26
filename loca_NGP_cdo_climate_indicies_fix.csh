@@ -55,42 +55,14 @@ HOST_NAME=`hostname`
                           "NorESM1-M_r1i1p1"
                           "bcc-csm1-1-m_r1i1p1" )
 
-    declare -a CL_INDEX=(   "ECACDD"
-                            "ECACFD"
-                            "ECACSU"
-                            "ECACWD"
-                            "ECACWDI"
-                            "ECACWFI"
-                            "ECAETR"
-                            "ECAFD"
-                            "ECAGSL"
-                            "ECAHD"
-                            "ECAHWDI"
-                            "ECAHWFI"
-                            "ECAID"
-                            "ECAR75P"
-                            "ECAR75PTOT"
-                            "ECAR90P"
-                            "ECAR90PTOT"
-                            "ECAR90P"
-                            "ECAR90PTOT"
-                            "ECAR90P"
-                            "ECAR90PTOT"
-                            "ECAPD010"
-                            "ECAPD020"
-                            "ECARR1"
-                            "MONMAX"
-                            "ECARX5DAY"
-                            "ECAR050-5DAY"
-                            "ECAR025-5DAY"
-                            "ECASDII"
-                            "ECATG10P"
-                            "ECATG90P"
+    declare -a CL_INDEX=(
+                            "ECARX1DAY"
                             "ECATN10P"
                             "ECATN90P"
-                            "ECATR"
                             "ECATX10P"
-                            "ECATX90P" )
+                            "ECATX90P"
+                            "ECATXX"
+                            "ECATNN" )
 
 
    export       DATASET="LOCA_NGP"
@@ -287,6 +259,13 @@ do
              cdo -O -z zip_8 eca_tn90p ${INPUT_SUBSET_TMIN} ${CLIM_TMIN_P090} ${OUTCI_FILE}
 
 
+
+       # 2.0.33 ECATX10P - Very cold days percent w.r.t. 10th percentile of reference period
+       echo
+       PARAM="ECATX10P"
+       OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
+       echo cdo -O -z zip_8 eca_tx10p ${INPUT_SUBSET_TMAX} ${CLIM_TMAX_P010} ${OUTCI_FILE}
+            cdo -O -z zip_8 eca_tx10p ${INPUT_SUBSET_TMAX} ${CLIM_TMAX_P010} ${OUTCI_FILE}
 
 
        # 2.0.34 ECATX90P - Very warm days percent w.r.t. 90th percentile of reference period
