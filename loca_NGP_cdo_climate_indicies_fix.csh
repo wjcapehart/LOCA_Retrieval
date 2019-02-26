@@ -60,9 +60,7 @@ HOST_NAME=`hostname`
                             "ECATN10P"
                             "ECATN90P"
                             "ECATX10P"
-                            "ECATX90P"
-                            "ECATXX"
-                            "ECATNN" )
+                            "ECATX90P" )
 
 
    export       DATASET="LOCA_NGP"
@@ -282,16 +280,16 @@ do
        echo
        PARAM="ECATNN"
        OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
-       echo cdo -O -z zip_8 monmin ${INPUT_SUBSET_TMIN}  ${OUTCI_FILE}
-            cdo -O -z zip_8 monmin ${INPUT_SUBSET_TMIN}  ${OUTCI_FILE}
+       echo cdo -O -z zip_8 yearmin ${INPUT_SUBSET_TMIN}  ${OUTCI_FILE}
+            cdo -O -z zip_8 yearmin ${INPUT_SUBSET_TMIN}  ${OUTCI_FILE}
 
 
        #  ECATXN Minimum Annual temperature
        echo
        PARAM="ECATXX"
        OUTCI_FILE=${CLIPPED_OUTDIR_ROOT}/${DATASET}_ETCCDI_${PARAM}_${ENS}_${SCEN}_${CLIM_PERIOD}_${YEAR}.nc
-       echo cdo -O -z zip_8 monmax ${INPUT_SUBSET_TMAX}  ${OUTCI_FILE}
-            cdo -O -z zip_8 monmax ${INPUT_SUBSET_TMAX}  ${OUTCI_FILE}
+       echo cdo -O -z zip_8 yearmax ${INPUT_SUBSET_TMAX}  ${OUTCI_FILE}
+            cdo -O -z zip_8 yearmax ${INPUT_SUBSET_TMAX}  ${OUTCI_FILE}
 
 
 

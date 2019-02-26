@@ -167,104 +167,11 @@ do
 
             if [[ ${PAR} == "pr" ]]; then
 
-               export OUTFILE=${CLIPPED_OUTDIR_A}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_YEARLY_TOTAL.nc
 
-               echo
-               echo processing ${OUTFILE}
-
-               echo
-               echo cdo -b I32 -O  -z zip_8 yearsum  ${SUBSETFILE} ${OUTFILE}
-               echo
-                    cdo -b I32 -O  -z zip_8 yearsum  ${SUBSETFILE} ${OUTFILE}
-               echo
-
-               echo
-               echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Total Annual Precipitation" ${OUTFILE}
-               echo
-                    ncatted -h -O -a     long_name,${VARNAME},m,c,"Total Annual Precipitation" ${OUTFILE}
-               echo
-
-               echo
-               echo ncatted -h -O -a   description,${VARNAME},m,c,"Total Annual Precipitation" ${OUTFILE}
-               echo
-                    ncatted -h -O -a   description,${VARNAME},m,c,"Total Annual Precipitation" ${OUTFILE}
-               echo
-
-               export MIDFILE=${OUTFILE}
-
-               export OUTFILE=${CLIPPED_OUTDIR_I}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_PERIOD_ANNUAL_MEAN.nc
-
-               echo
-               echo processing ${OUTFILE}
-
-               echo
-               echo cdo -b I32 -O  -z zip_8 timmean  ${MIDFILE} ${OUTFILE}
-               echo
-                    cdo -b I32 -O  -z zip_8 timmean  ${MIDFILE} ${OUTFILE}
-               echo
-
-               echo
-               echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean Annual Precipitation" ${OUTFILE}
-               echo
-                    ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean Annual Precipitation" ${OUTFILE}
-               echo
-
-               echo
-               echo ncatted -h -O -a   description,${VARNAME},m,c,"Mean Annual Precipitation" ${OUTFILE}
-               echo
-                    ncatted -h -O -a   description,${VARNAME},m,c,"Mean Annual Precipitation" ${OUTFILE}
-               echo
-
-               export OUTFILE=${CLIPPED_OUTDIR_M}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_MONTLY_TOTAL.nc
-
-               echo
-               echo processing ${OUTFILE}
-               echo
-
-               echo
-               echo cdo -b I32 -O  -z zip_8 monsum  ${SUBSETFILE} ${OUTFILE}
-               echo
-                    cdo -b I32 -O  -z zip_8 monsum  ${SUBSETFILE} ${OUTFILE}
-               echo
-
-               echo
-               echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Total Monthly Precipitation" ${OUTFILE}
-               echo
-                    ncatted -h -O -a     long_name,${VARNAME},m,c,"Total Monthly Precipitation" ${OUTFILE}
-               echo
-
-               echo
-               echo ncatted -h -O -a   description,${VARNAME},m,c,"Total Monthly Precipitation" ${OUTFILE}
-               echo
-                    ncatted -h -O -a   description,${VARNAME},m,c,"Total Monthly Precipitation" ${OUTFILE}
-               echo
 
             else
 
               if [[ ${PAR} == "tasmax" ]]; then
-
-                export OUTFILE=${CLIPPED_OUTDIR_A}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_YEARLY_MEAN.nc
-
-                echo
-                echo processing ${OUTFILE}
-
-                echo
-                echo cdo -O  -z zip_8 yearmean ${SUBSETFILE} ${OUTFILE}
-                echo
-                     cdo -O  -z zip_8 yearmean ${SUBSETFILE} ${OUTFILE}
-                echo
-
-                echo
-                echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean Annual Max Temperature" ${OUTFILE}
-                echo
-                     ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean Annual Max Temperature" ${OUTFILE}
-                echo
-
-                echo
-                echo ncatted -h -O -a   description,${VARNAME},m,c,"Mean Annual Max Temperature" ${OUTFILE}
-                echo
-                     ncatted -h -O -a   description,${VARNAME},m,c,"Mean Annual Max Temperature" ${OUTFILE}
-                echo
 
 
                 export OUTFILE=${CLIPPED_OUTDIR_A}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_YEARLY_MAX.nc
@@ -315,78 +222,7 @@ do
 
 
 
-                export MIDFILE=${OUTFILE}
-
-                export OUTFILE=${CLIPPED_OUTDIR_I}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_PERIOD_ANNUAL_MEAN.nc
-
-                echo
-                echo processing ${OUTFILE}
-
-                echo
-                echo cdo -b I32 -O  -z zip_8 timmean  ${MIDFILE} ${OUTFILE}
-                echo
-                     cdo -b I32 -O  -z zip_8 timmean  ${MIDFILE} ${OUTFILE}
-                echo
-
-                echo
-                echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean Annual Max Temperature" ${OUTFILE}
-                echo
-                     ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean Annual Max Temperature" ${OUTFILE}
-                echo
-
-                echo
-                echo ncatted -h -O -a   description,${VARNAME},m,c,"Mean Annual Max Temperature" ${OUTFILE}
-                echo
-                     ncatted -h -O -a   description,${VARNAME},m,c,"Mean Annual Max Temperature" ${OUTFILE}
-                echo
-
-                export OUTFILE=${CLIPPED_OUTDIR_M}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_MONTLY_MEAN.nc
-
-                echo
-                echo processing ${OUTFILE}
-
-                echo
-                echo cdo -b I32 -O  -z zip_8 monmean  ${SUBSETFILE} ${OUTFILE}
-                echo
-                     cdo -b I32 -O  -z zip_8 monmean  ${SUBSETFILE} ${OUTFILE}
-                echo
-
-                echo
-                echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean Monthly Max Temperature" ${OUTFILE}
-                echo
-                     ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean Monthly Max Temperature" ${OUTFILE}
-                echo
-
-                echo
-                echo ncatted -h -O -a   description,${VARNAME},m,c,"Mean Monthly Max Temperature" ${OUTFILE}
-                echo
-                     ncatted -h -O -a   description,${VARNAME},m,c,"Mean Monthly Max Temperature" ${OUTFILE}
-                echo
-
               else
-                export OUTFILE=${CLIPPED_OUTDIR_A}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_YEARLY_MEAN.nc
-
-                echo
-                echo processing ${OUTFILE}
-
-                echo
-                echo cdo  -O  -z zip_8 yearmean ${SUBSETFILE} ${OUTFILE}
-                echo
-                     cdo  -O  -z zip_8 yearmean  ${SUBSETFILE} ${OUTFILE}
-                echo
-
-                echo
-                echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean Annual Min Temperature" ${OUTFILE}
-                echo
-                     ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean Annual Min Temperature" ${OUTFILE}
-                echo
-
-                echo
-                echo ncatted -h -O -a   description,${VARNAME},m,c,"Mean Annual Min Temperature" ${OUTFILE}
-                echo
-                     ncatted -h -O -a   description,${VARNAME},m,c,"Mean Annual Min Temperature" ${OUTFILE}
-                echo
-
 
 
 
@@ -439,54 +275,6 @@ do
 
 
 
-
-                export MIDFILE=${OUTFILE}
-
-                export OUTFILE=${CLIPPED_OUTDIR_I}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_PERIOD_ANNUAL_MEAN.nc
-
-                echo
-                echo processing ${OUTFILE}
-
-                echo
-                echo cdo  -O  -z zip_8 timmean  ${MIDFILE} ${OUTFILE}
-                echo
-                     cdo  -O  -z zip_8 timmean  ${MIDFILE} ${OUTFILE}
-                echo
-
-                echo
-                echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean Annual Min Temperature" ${OUTFILE}
-                echo
-                     ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean Annual Min Temperature" ${OUTFILE}
-                echo
-
-                echo
-                echo ncatted -h -O -a   description,${VARNAME},m,c,"Mean Annual Min Temperature" ${OUTFILE}
-                echo
-                     ncatted -h -O -a   description,${VARNAME},m,c,"Mean Annual Min Temperature" ${OUTFILE}
-                echo
-
-                export OUTFILE=${CLIPPED_OUTDIR_M}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_MONTLY_MEAN.nc
-
-                echo
-                echo processing ${OUTFILE}
-
-                echo
-                echo cdo  -O  -z zip_8 monmean  ${SUBSETFILE} ${OUTFILE}
-                echo
-                     cdo  -O  -z zip_8 monmean  ${SUBSETFILE} ${OUTFILE}
-                echo
-
-                echo
-                echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean Monthly Min Temperature" ${OUTFILE}
-                echo
-                     ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean Monthly Min Temperature" ${OUTFILE}
-                echo
-
-                echo
-                echo ncatted -h -O -a   description,${VARNAME},m,c,"Mean Monthly Min Temperature" ${OUTFILE}
-                echo
-                     ncatted -h -O -a   description,${VARNAME},m,c,"Mean Monthly Min Temperature" ${OUTFILE}
-                echo
               fi
             fi
 
