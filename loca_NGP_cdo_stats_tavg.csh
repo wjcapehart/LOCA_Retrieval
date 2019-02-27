@@ -8,7 +8,7 @@ HOST_NAME=`hostname`
   echo Working on ${HOST_NAME} using ${OS_NAME}
 
   declare -a    PARAM=( "tasavg" )
-  declare -a SCENARIO=( "historical")
+  declare -a SCENARIO=( "historical" "rcp85" "rcp45"  )
 
   rm -frv ./TEMP_tasmin.nc ./TEMP_tasmax.nc ./cdo_period_subset.nc ./tasmax_period_subset.nc ./tasmin_period_subset.nc
 
@@ -66,11 +66,6 @@ declare -a PERCENTILE=( 005 010         025                 050                 
 
 
 
-   export ENS=${ENSEMBLE[0]}
-   export PAR=${PARAM[0]}
-   export PTILE=${PERCENTILE[0]}
-   export SCEN=${SCENARIO[0]}
-
 for SCEN in "${SCENARIO[@]}"
 do
    echo @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -83,15 +78,18 @@ do
       export      END_DATE="1990-12-31"
       export            NY=30
 
-      export PERIOD_STRING="1950-2005"
-      export    START_DATE="1950-01-01"
-      export      END_DATE="2005-12-31"
-      export            NY=56
 
       export PERIOD_STRING="1961-1990"
       export    START_DATE="1961-01-01"
       export      END_DATE="1990-12-31"
       export            NY=30
+
+
+      export PERIOD_STRING="1950-2005"
+      export    START_DATE="1950-01-01"
+      export      END_DATE="2005-12-31"
+      export            NY=56
+
    else
 
 
@@ -109,6 +107,12 @@ do
 
 
    fi
+
+      export ENS=${ENSEMBLE[0]}
+      export PAR=${PARAM[0]}
+      export PTILE=${PERCENTILE[0]}
+      export SCEN=${SCENARIO[0]}
+
 
    PAR="tasavg"
 
@@ -143,9 +147,62 @@ do
          export  INTMAX=${CLIPPED_INDIR_ROOT}/${SCEN}/tasmax/${DATASETPREFIX}_tasmax_${ENS}_${SCEN}.nc
          export  INTMIN=${CLIPPED_INDIR_ROOT}/${SCEN}/tasmin/${DATASETPREFIX}_tasmin_${ENS}_${SCEN}.nc
 
-         echo processing $INFILE
+         echo processing ${INTMAX}
 
          export  VARNAME=${PAR}_${ENS}_${SCEN}
+
+
+         # if the full data period is being used extract annial and monthly series
+
+         if [ ${PERIOD_STRING} ==  "1950-2005" ] || [ ${PERIOD_STRING} ==  "2006-2099" ]; then
+
+           mkdir -vp ${CLIPPED_OUTDIR_M}
+
+            echo
+            echo Using Full Period String = ${PERIOD_STRING} using original file
+            echo
+            echo
+            echo .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+
+            export TASMAXFILE=${INTMAX}
+            export TASMINFILE=${INTMIN}
+
+            export SUBSETFILE="./cdo_period_subset.nc"
+            echo
+            echo Using Period String = ${PERIOD_STRING} clipping file
+            echo
+            echo Processing ${PAR}_${ENS}_${SCEN} seldate ${START_DATE} - ${END_DATE}
+            echo
+            echo cdo  -O -z zip_8 ensmean ${TASMAXFILE} ${TASMINFILE} ${SUBSETFILE}
+            echo
+                 cdo  -O -z zip_8 ensmean ${TASMAXFILE} ${TASMINFILE} ${SUBSETFILE}
+            echo
+
+            export OUTFILE=${CLIPPED_OUTDIR_M}/${DATASET}_${VARNAME}_${PERIOD_STRING}_CDO_MONTHLY_AVERAGES.nc
+            echo
+            echo processing ${OUTFILE}
+            echo
+            echo Processing ${PAR}_${ENS}_${SCEN} monmean ${START_DATE} - ${END_DATE}
+            echo
+            echo cdo  -O -z zip_8 monmean ${SUBSETFILE} ${OUTFILE}
+            echo
+                 cdo  -O -z zip_8 monmean ${SUBSETFILE} ${OUTFILE}
+            echo
+
+
+                          echo
+                          echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Montly Mean Daily Temperature" ${OUTFILE}
+                          echo
+                               ncatted -h -O -a     long_name,${VARNAME},m,c,"Montly Mean Daily Temperature" ${OUTFILE}
+
+                          echo
+                          echo ncatted -h -O -a   description,${VARNAME},m,c,"Montly Mean Daily Temperature" ${OUTFILE}
+                          echo
+                               ncatted -h -O -a   description,${VARNAME},m,c,"Montly Mean Daily Temperature" ${OUTFILE}
+                          echo
+
+
+         else
 
 
 
@@ -315,12 +372,12 @@ do
 
               done
 
-              rm -frv ./TEMP_tasmin.nc ./TEMP_tasmax.nc ./cdo_period_subset.nc ./tasmax_period_subset.nc ./tasmin_period_subset.nc
 
-              echo
+            fi
 
+            rm -frv ./TEMP_tasmin.nc ./TEMP_tasmax.nc ./cdo_period_subset.nc ./tasmax_period_subset.nc ./tasmin_period_subset.nc
 
-
+            echo
          echo
       done
       echo

@@ -167,7 +167,7 @@ do
 
             if [[ ${PAR} == "pr" ]]; then
 
-
+              echo not doing precip
 
             else
 
