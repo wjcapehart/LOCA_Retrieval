@@ -7,7 +7,7 @@ HOST_NAME=`hostname`
 
   echo Working on ${HOST_NAME} using ${OS_NAME}
 
-  declare -a    PARAM=("tasmin" "tasmax" )
+  declare -a    PARAM=("tasmin"  )
   declare -a SCENARIO=("historical" "rcp85" "rcp45" )
 
 
