@@ -9,7 +9,7 @@ HOST_NAME=`hostname`
 
   declare -a    PARAM=( "tasavg" )
   declare -a SCENARIO=( "historical" "rcp85" "rcp45"  )
-  declare -a SCENARIO=( "rcp85"  )
+  declare -a SCENARIO=( "rcp45"  )
   echo ${SCENARIO[@]}
   rm -frv ./TEMP_tasmin.nc ./TEMP_tasmax.nc ./cdo_period_subset.nc ./tasmax_period_subset.nc ./tasmin_period_subset.nc
 
