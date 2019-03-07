@@ -9,7 +9,7 @@ HOST_NAME=`hostname`
 
   declare -a    PARAM=( "tasavg" )
   declare -a SCENARIO=( "historical" "rcp85" "rcp45"  )
-  declare -a SCENARIO=( rcp85  )
+  declare -a SCENARIO=( "rcp85"  )
   echo ${SCENARIO[@]}
   rm -frv ./TEMP_tasmin.nc ./TEMP_tasmax.nc ./cdo_period_subset.nc ./tasmax_period_subset.nc ./tasmin_period_subset.nc
 
@@ -155,7 +155,7 @@ do
             echo
             echo cdo  -O -z zip_8 ensmean ${TASMAXFILE} ${TASMINFILE} ${SUBSETFILE}
             echo
-            #     cdo  -O -z zip_8 ensmean ${TASMAXFILE} ${TASMINFILE} ${SUBSETFILE}
+                 cdo  -O -z zip_8 ensmean ${TASMAXFILE} ${TASMINFILE} ${SUBSETFILE}
             echo
 
             ls -al  ${SUBSETFILE}
@@ -170,7 +170,7 @@ do
             echo
             echo cdo  -O -z zip_8 monmean ${SUBSETFILE} ${OUTFILE}
             echo
-            #     cdo  -O -z zip_8 monmean ${SUBSETFILE} ${OUTFILE}
+                 cdo  -O -z zip_8 monmean ${SUBSETFILE} ${OUTFILE}
             echo
 
             ls -al  ${OUTFILE}
@@ -179,15 +179,15 @@ do
                 echo
                 echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Montly Mean Daily Temperature" ${OUTFILE}
                 echo
-                #     ncatted -h -O -a     long_name,${VARNAME},m,c,"Montly Mean Daily Temperature" ${OUTFILE}
+                     ncatted -h -O -a     long_name,${VARNAME},m,c,"Montly Mean Daily Temperature" ${OUTFILE}
 
                 echo
                 echo ncatted -h -O -a   description,${VARNAME},m,c,"Montly Mean Daily Temperature" ${OUTFILE}
                 echo
-                #     ncatted -h -O -a   description,${VARNAME},m,c,"Montly Mean Daily Temperature" ${OUTFILE}
+                     ncatted -h -O -a   description,${VARNAME},m,c,"Montly Mean Daily Temperature" ${OUTFILE}
                 echo
 
-                #rm -frv ./cdo_period_subset.nc
+                rm -frv ./cdo_period_subset.nc
 
 
 
