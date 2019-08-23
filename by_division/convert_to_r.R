@@ -2,6 +2,7 @@ library(stringr)
 library(forcats)
 library(readr)
 library(tidyverse)
+library(lubridate)
 
 directory = "/maelstrom2/LOCA_GRIDDED_ENSEMBLES/LOCA_NGP/climate_divisions/"
 
@@ -92,13 +93,19 @@ for (division in Divisions)
   
   last_record = loca_daily[nrow(loca_daily), ]
   
-  if ( ((last_record$Scenario == "Historical") & (last_record$Time != "2005-12-31 00:00 UTC")) |
-       ((last_record$Scenario != "Historical") & (last_record$Time != "2099-12-31 00:00 UTC")) )
+  if ( ((last_record$Scenario == "Historical") & (last_record$Time != "2005-12-31")) |
+       ((last_record$Scenario != "Historical") & (last_record$Time != "2099-12-31")) )
   {
+      print(str_c("  truncating",
+                  last_record$Ensemble,
+                  last_record$Scenario,
+                  last_record$Time,
+                  sep = " "))
+    
       loca_daily = loca_daily %>% 
-          filter( (Scenario   != last_record$Scenario)  &
-                  (Ensemble   != last_record$Ensemble)  &
-                  (year(Time) != year(last_record$Time) )
+          filter( ! ((loca_daily$Scenario   == last_record$Scenario)   &
+                     (loca_daily$Ensemble   == last_record$Ensemble)   &
+                     (year(loca_daily$Time) == year(last_record$Time)) ) )
   }
   
     
@@ -116,4 +123,22 @@ rData_files = intersect(list.files(path    = directory,
                         list.files(path    = directory,
                                    pattern = "RData"))
 
+Completed_Divisions = str_sub(string = rData_files,
+                              start  = str_length(string = prefix) + 1, 
+                              end    = str_length(string = prefix) + 4)
+
+save(Completed_Divisions, file = str_c(directory,
+                              "Completed_Divisions",
+                              ".RData", 
+                              sep=""))
+
 print(rData_files)
+
+
+x = which( ((loca_daily$Scenario   == last_record$Scenario)   &
+            (loca_daily$Ensemble   == last_record$Ensemble)   &
+            (year(loca_daily$Time) == year(last_record$Time)) ))
+
+y = which( !((loca_daily$Scenario   == last_record$Scenario)   &
+              (loca_daily$Ensemble   == last_record$Ensemble)   &
+              (year(loca_daily$Time) == year(last_record$Time)) ))
