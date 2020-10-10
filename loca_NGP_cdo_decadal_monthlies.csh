@@ -66,6 +66,7 @@ HOST_NAME=`hostname`
    export PAR=${PARAM[0]}
    export PTILE=${PERCENTILE[9]}
    export SCEN=${SCENARIO[0]}
+   export DECADE=0
 
 for SCEN in "${SCENARIO[@]}"
 do
@@ -130,6 +131,8 @@ do
                                         "2070-2099"
                                         "2006-2014")
 
+
+
           declare -a    START_DATES=(   "2006-01-01"
                                         "2011-01-01"
                                         "2021-01-01"
@@ -178,6 +181,9 @@ do
 
      echo Processing Decade ${DECADE} ${START_DATES[${DECADE}]}
 
+     export START_YEAR=`echo $PERIOD_STRING | cut -c1-4`
+     export END_YEAR=`echo $PERIOD_STRING | cut -c6-9`
+     export PERIOD_LENGTH=`expr ${END_YEAR} - ${START_YEAR} + 1`
 
 
      for PAR in "${PARAM[@]}"
@@ -185,10 +191,11 @@ do
         echo =============================================================
         echo
 
-        export  INPUT_DIR=${CLIMATE_ROOT_DIR}/${MASTERPERIOD}/${SCEN}/${PAR}/${DATASETPREFIX}/MONTHLY/${PAR}
-        export OUTPUT_DIR=${CLIMATE_ROOT_DIR}/${PERIOD_STRING}/${SCEN}/${PAR}/${DATASETPREFIX}/MONTHLY_CLIMS/${PAR}
+        export  INPUT_DIR=${CLIMATE_ROOT_DIR}/${MASTERPERIOD}/MONTHLY/${PAR}
+        export OUTPUT_DIR=${CLIMATE_ROOT_DIR}/${PERIOD_STRING}/MONTHLY_CLIMS/${PAR}
 
-        echo processing $CLIPPED_INPREFIX
+        echo INPUT_DIR $INPUT_DIR
+        echo OUTPUT_DIR $OUTPUT_DIR
 
         mkdir -vp ${OUTPUT_DIR}
 
@@ -204,14 +211,14 @@ do
 
            rm -frv ./cdo_period_subset.nc
 
-           export   INFILE=${INPUT_DIR}/LOCA_NGP_${VARNAME}_CDO_MONTHLY_MEAN.nc
+           export   INFILE=${INPUT_DIR}/LOCA_NGP_${VARNAME}_${MASTERPERIOD}_CDO_MONTHLY_MEAN.nc
 
            if [[ ${PAR} == "pr" ]]; then
-              export   INFILE=${INPUT_DIR}/LOCA_NGP_${VARNAME}_CDO_MONTHLY_TOTAL.nc
+              export   INFILE=${INPUT_DIR}/LOCA_NGP_${VARNAME}_${MASTERPERIOD}_CDO_MONTHLY_TOTAL.nc
            fi
 
+           export  OUTFILE=${OUTPUT_DIR}/LOCA_NGP_${VARNAME}_${PERIOD_STRING}_CDO_PERIOD_MONTHLY_MEAN.nc
 
-           export  OUTFILE=${OUTPUT_DIR}/LOCA_NGP_${VARNAME}_CDO_PERIOD_MONTHLY_TOTAL.nc
 
            echo inputfile $INFILE
            echo outputfile $OUTFILE
@@ -313,8 +320,8 @@ do
 
 
               echo
-              echo ncatted -h -O -a     years_in_calculation,global,c,s,${NDECADES} ${OUTFILE}
-                   ncatted -h -O -a     years_in_calculation,global,c,s,${NDECADES} ${OUTFILE}
+              echo ncatted -h -O -a     years_in_calculation,global,c,s,${PERIOD_LENGTH} ${OUTFILE}
+                   ncatted -h -O -a     years_in_calculation,global,c,s,${PERIOD_LENGTH} ${OUTFILE}
               echo
 
 
