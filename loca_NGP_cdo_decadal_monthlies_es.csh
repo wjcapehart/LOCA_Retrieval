@@ -7,7 +7,7 @@ HOST_NAME=`hostname`
 
   echo Working on ${HOST_NAME} using ${OS_NAME}
 
-  declare -a    PARAM=("tasmax"  )
+  declare -a    PARAM=("esatmax" "esatmin"  )
   declare -a SCENARIO=("historical" "rcp85" "rcp45" )
 
 
@@ -50,6 +50,7 @@ HOST_NAME=`hostname`
    export DATASETPREFIX="NGP_LOCA"
 
    export CLIMATE_ROOT_DIR="/projects/ECEP/LOCA_MACA_Ensembles/LOCA/LOCA_NGP/climatology/"
+   export INPUT_ESAT_ROOT_DIR="/squall2/LOCA_NGP/derived/"
 
    export CDO_PCTL_NBINS=21
 
@@ -191,7 +192,7 @@ do
         echo =============================================================
         echo
 
-        export  INPUT_DIR=${CLIMATE_ROOT_DIR}/${MASTERPERIOD}/MONTHLY/${PAR}
+        export  INPUT_DIR=${INPUT_ESAT_ROOT_DIR}/${SCEN}/${PAR}
         export OUTPUT_DIR=${CLIMATE_ROOT_DIR}/${PERIOD_STRING}/MONTHLY_CLIMS/${PAR}
 
         echo INPUT_DIR $INPUT_DIR
@@ -288,8 +289,6 @@ do
 
               if [[ ${PAR} == "tasmax" ]]; then
 
-
-
                 echo
                 echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean Monthly Max Daily Temperature" ${OUTFILE}
                 echo
@@ -302,10 +301,9 @@ do
                 echo
               fi
 
+
               if [[ ${PAR} == "esatmax" ]]; then
-
-
-
+=
                 echo
                 echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean Monthly Max Equilibrium Vapor Pressure" ${OUTFILE}
                 echo
@@ -321,8 +319,6 @@ do
 
               if [[ ${PAR} == "esatmin" ]]; then
 
-
-
                 echo
                 echo ncatted -h -O -a     long_name,${VARNAME},m,c,"Mean Monthly Min Equilibrium Vapor Pressure" ${OUTFILE}
                 echo
@@ -334,7 +330,6 @@ do
                      ncatted -h -O -a   description,${VARNAME},m,c,"Mean Monthly Min Equilibrium Vapor Pressure" ${OUTFILE}
                 echo
               fi
-
 
               echo
               echo ncatted -h -O -a     period,global,c,c,${PERIOD_STRING} ${OUTFILE}
