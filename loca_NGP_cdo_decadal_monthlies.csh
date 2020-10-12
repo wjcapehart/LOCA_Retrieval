@@ -7,7 +7,7 @@ HOST_NAME=`hostname`
 
   echo Working on ${HOST_NAME} using ${OS_NAME}
 
-  declare -a    PARAM=("tasmax"  )
+  declare -a    PARAM=("tasmax" "esatmax" "esatmin"  )
   declare -a SCENARIO=("historical" "rcp85" "rcp45" )
 
 
@@ -50,6 +50,7 @@ HOST_NAME=`hostname`
    export DATASETPREFIX="NGP_LOCA"
 
    export CLIMATE_ROOT_DIR="/projects/ECEP/LOCA_MACA_Ensembles/LOCA/LOCA_NGP/climatology/"
+   export INPUT_ESAT_ROOT_DIR="/squall2/LOCA_NGP/derived/"
 
    export CDO_PCTL_NBINS=21
 
@@ -192,6 +193,12 @@ do
         echo
 
         export  INPUT_DIR=${CLIMATE_ROOT_DIR}/${MASTERPERIOD}/MONTHLY/${PAR}
+
+
+        if [[ ${PAR} == "esatmin" ]]; then
+          export  INPUT_DIR=${INPUT_ESAT_ROOT_DIR}/${SCEN}/${PAR}
+        fi
+
         export OUTPUT_DIR=${CLIMATE_ROOT_DIR}/${PERIOD_STRING}/MONTHLY_CLIMS/${PAR}
 
         echo INPUT_DIR $INPUT_DIR

@@ -210,7 +210,7 @@ do
            export  VARNAME=${PAR}_${ENS}_${SCEN}
 
 
-           rm -frv ./cdo_period_subset.nc
+           rm -frv ./cdo_esat_period_subset.nc
 
            export   INFILE=${INPUT_DIR}/LOCA_NGP_${VARNAME}_${MASTERPERIOD}_CDO_MONTHLY_MEAN.nc
 
