@@ -198,7 +198,10 @@ do
         if [[ ${PAR} == "esatmin" ]]; then
           export  INPUT_DIR=${INPUT_ESAT_ROOT_DIR}/${SCEN}/${PAR}
         fi
-
+        if [[ ${PAR} == "esatmax" ]]; then
+          export  INPUT_DIR=${INPUT_ESAT_ROOT_DIR}/${SCEN}/${PAR}
+        fi
+        
         export OUTPUT_DIR=${CLIMATE_ROOT_DIR}/${PERIOD_STRING}/MONTHLY_CLIMS/${PAR}
 
         echo INPUT_DIR $INPUT_DIR
