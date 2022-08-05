@@ -15,7 +15,7 @@ import numpy as np
 
 # ## Control Variables and Arrays
 
-# In[33]:
+# In[ ]:
 
 
 working_directory = "./"
@@ -87,7 +87,7 @@ ensemble2s = ["ACCESS1-0_r1i1p1" ,     \
 
 # ## Processing Loop
 
-# In[47]:
+# In[ ]:
 
 
 for variable_new in variables:
@@ -140,15 +140,15 @@ for variable_new in variables:
                 print('- - - - - - - - - - - - - - - -')
 
                 print('ncrename -O -h -v ' + variable_old + ',' + variable_new + ' ' + full_file_nc_name_old)
-                os.system(" ncrename -O -h -v ' + variable_old + ',' + variable_new + ' ' + full_file_nc_name_old)
+                os.system('ncrename -O -h -v ' + variable_old + ',' + variable_new + ' ' + full_file_nc_name_old)
                 print('ncatted -O -h -a geospatial_lat_min,global,o,f,33.9375   ' + full_file_nc_name_old)
-                os.system(" ncatted -O -h -a geospatial_lat_min,global,o,f,33.9375   ' + full_file_nc_name_old)
+                os.system('ncatted -O -h -a geospatial_lat_min,global,o,f,33.9375   ' + full_file_nc_name_old)
                 print('ncatted -O -h -a geospatial_lat_max,global,o,f,52.8125   ' + full_file_nc_name_old)
-                os.system(" ncatted -O -h -a geospatial_lat_max,global,o,f,52.8125   ' + full_file_nc_name_old)
+                os.system('ncatted -O -h -a geospatial_lat_max,global,o,f,52.8125   ' + full_file_nc_name_old)
                 print('ncatted -O -h -a geospatial_lon_min,global,o,f,-114.3125 ' + full_file_nc_name_old)
-                os.system(" ncatted -O -h -a geospatial_lon_min,global,o,f,-114.3125 ' + full_file_nc_name_old)
+                os.system('ncatted -O -h -a geospatial_lon_min,global,o,f,-114.3125 ' + full_file_nc_name_old)
                 print('ncatted -O -h -a geospatial_lon_max,global,o,f,-86.1875  ' + full_file_nc_name_old)
-                os.system(" ncatted -O -h -a geospatial_lon_max,global,o,f,-86.1875  ' + full_file_nc_name_old)
+                os.system('ncatted -O -h -a geospatial_lon_max,global,o,f,-86.1875  ' + full_file_nc_name_old)
 
 
 
@@ -158,48 +158,48 @@ for variable_new in variables:
                 print('- - - - - - - - - - - - - - - -')
                 
                 print('ncatted -O -h -a title,global,c,c,"Historical LOCA Statistical Downscaling (Localized Constructed Analogs) Statistically downscaled CMIP5 climate projections for North America" ' + full_file_nc_name_old)
-                os.system(" ncatted -O -h -a title,global,c,c,"Historical LOCA Statistical Downscaling (Localized Constructed Analogs) Statistically downscaled CMIP5 climate projections for North America" ' + full_file_nc_name_old)
+                os.system('ncatted -O -h -a title,global,c,c,"Historical LOCA Statistical Downscaling (Localized Constructed Analogs) Statistically downscaled CMIP5 climate projections for North America" ' + full_file_nc_name_old)
                 print('ncatted -O -h -a acknowledgment,global,c,c,"Pierce, D. W. and D. R. Cayan, 2015: Downscaling humidity with Localized Constructed Analogs (LOCA) over the conterminous United States. Climate Dynamics, DOI 10.1007/s00382-015-2845-1" ' + full_file_nc_name_old)
-                os.system(" ncatted -O -h -a acknowledgment,global,c,c,"Pierce, D. W. and D. R. Cayan, 2015: Downscaling humidity with Localized Constructed Analogs (LOCA) over the conterminous United States. Climate Dynamics, DOI 10.1007/s00382-015-2845-1" ' + full_file_nc_name_old)
+                os.system('ncatted -O -h -a acknowledgment,global,c,c,"Pierce, D. W. and D. R. Cayan, 2015: Downscaling humidity with Localized Constructed Analogs (LOCA) over the conterminous United States. Climate Dynamics, DOI 10.1007/s00382-015-2845-1" ' + full_file_nc_name_old)
                 print('ncatted -O -h -a summary,global,c,c,"LOCA is a statistical downscaling technique that uses past history to add improved fine-scale detail to global climate models. We have used LOCA to downscale 32 global climate models from the CMIP5 archive at a 1/16th degree spatial resolution, covering North America from central Mexico through Southern Canada. The historical period is 1950-2005, and there are two future scenarios available: RCP 4.5 and RCP 8.5 over the period 2006-2100 (although some models stop in 2099). The variables currently available are daily minimum and maximum temperature, and daily precipitation. For more information visit: http://loca.ucsd.edu/" ' + full_file_nc_name_old)
-                os.system(" ncatted -O -h -a summary,global,c,c,"LOCA is a statistical downscaling technique that uses past history to add improved fine-scale detail to global climate models. We have used LOCA to downscale 32 global climate models from the CMIP5 archive at a 1/16th degree spatial resolution, covering North America from central Mexico through Southern Canada. The historical period is 1950-2005, and there are two future scenarios available: RCP 4.5 and RCP 8.5 over the period 2006-2100 (although some models stop in 2099). The variables currently available are daily minimum and maximum temperature, and daily precipitation. For more information visit: http://loca.ucsd.edu/" ' + full_file_nc_name_old)
+                os.system('ncatted -O -h -a summary,global,c,c,"LOCA is a statistical downscaling technique that uses past history to add improved fine-scale detail to global climate models. We have used LOCA to downscale 32 global climate models from the CMIP5 archive at a 1/16th degree spatial resolution, covering North America from central Mexico through Southern Canada. The historical period is 1950-2005, and there are two future scenarios available: RCP 4.5 and RCP 8.5 over the period 2006-2100 (although some models stop in 2099). The variables currently available are daily minimum and maximum temperature, and daily precipitation. For more information visit: http://loca.ucsd.edu/" ' + full_file_nc_name_old)
                 print('ncatted -O -h -a keywords,global,c,c,"precipitation, temperature, relative_humidity" ' + full_file_nc_name_old)
-                os.system(" ncatted -O -h -a keywords,global,c,c,"precipitation, temperature, relative_humidity" ' + full_file_nc_name_old)
+                os.system('ncatted -O -h -a keywords,global,c,c,"precipitation, temperature, relative_humidity" ' + full_file_nc_name_old)
                 print('ncatted -O -h -a cdm_data_type,global,c,c,"Grid" ' + full_file_nc_name_old)
-                os.system(" ncatted -O -h -a cdm_data_type,global,c,c,"Grid" ' + full_file_nc_name_old)
+                os.system('ncatted -O -h -a cdm_data_type,global,c,c,"Grid" ' + full_file_nc_name_old)
                 print('ncatted -O -h -a creator_name,global,c,c,"David Pierce" ' + full_file_nc_name_old)
-                os.system(" ncatted -O -h -a creator_name,global,c,c,"David Pierce" ' + full_file_nc_name_old)
+                os.system('ncatted -O -h -a creator_name,global,c,c,"David Pierce" ' + full_file_nc_name_old)
                 print('ncatted -O -h -a creator_email,global,c,c,"dpierce@ucsd.edu" ' + full_file_nc_name_old)
-                os.system(" ncatted -O -h -a creator_email,global,c,c,"dpierce@ucsd.edu" ' + full_file_nc_name_old)
+                os.system(' ncatted -O -h -a creator_email,global,c,c,"dpierce@ucsd.edu" ' + full_file_nc_name_old)
                 print('ncatted -O -h -a geospatial_lat_min,global,c,f,33.9375   ' + full_file_nc_name_old)
-                os.system(" ncatted -O -h -a geospatial_lat_min,global,c,f,33.9375   ' + full_file_nc_name_old)
+                os.system(' ncatted -O -h -a geospatial_lat_min,global,c,f,33.9375   ' + full_file_nc_name_old)
                 print('ncatted -O -h -a geospatial_lat_max,global,c,f,52.8125   ' + full_file_nc_name_old)
-                os.system(" ncatted -O -h -a geospatial_lat_max,global,c,f,52.8125   ' + full_file_nc_name_old)
+                os.system('ncatted -O -h -a geospatial_lat_max,global,c,f,52.8125   ' + full_file_nc_name_old)
                 print('ncatted -O -h -a geospatial_lon_min,global,c,f,-114.3125 ' + full_file_nc_name_old)
-                os.system(" ncatted -O -h -a geospatial_lon_min,global,c,f,-114.3125 ' + full_file_nc_name_old)
+                os.system('ncatted -O -h -a geospatial_lon_min,global,c,f,-114.3125 ' + full_file_nc_name_old)
                 print('ncatted -O -h -a geospatial_lon_max,global,c,f,-86.1875  ' + full_file_nc_name_old)
-                os.system(" ncatted -O -h -a geospatial_lon_max,global,c,f,-86.1875  ' + full_file_nc_name_old)
+                os.system('ncatted -O -h -a geospatial_lon_max,global,c,f,-86.1875  ' + full_file_nc_name_old)
 
 
             print('- - - - - - - - - - - - - - - -')
 
-            print(" ncatted -O -h -a SCENARIO,global,c,c,"' + rcp + '" ' + full_file_nc_name_old)
-            os.system(" ncatted -O -h -a SCENARIO,global,c,c,"' + rcp + '" ' + full_file_nc_name_old)
+            print('ncatted -O -h -a SCENARIO,global,c,c,"' + rcp + '" ' + full_file_nc_name_old)
+            os.system('ncatted -O -h -a SCENARIO,global,c,c,"' + rcp + '" ' + full_file_nc_name_old)
 
             print('- - - - - - - - - - - - - - - -')
 
-            print(" ncatted -O -h -a ENSEMBLE_LONG,global,c,c,"' + ensemble_old + '" ' + full_file_nc_name_old)
-            os.system(" ncatted -O -h -a ENSEMBLE_LONG,global,c,c,"' + ensemble_old + '" ' + full_file_nc_name_old)
+            print('ncatted -O -h -a ENSEMBLE_LONG,global,c,c,"' + ensemble_old + '" ' + full_file_nc_name_old)
+            os.system('ncatted -O -h -a ENSEMBLE_LONG,global,c,c,"' + ensemble_old + '" ' + full_file_nc_name_old)
 
             print('- - - - - - - - - - - - - - - -')
 
-            print("ncatted -O -h -a ENSEMBLE_SHORT,global,c,c,"' + ensemble_new + '" ' + full_file_nc_name_old)
-            os.system(" ncatted -O -h -a ENSEMBLE_SHORT,global,c,c,"' + ensemble_new + '" ' + full_file_nc_name_old)
+            print('ncatted -O -h -a ENSEMBLE_SHORT,global,c,c,"' + ensemble_new + '" ' + full_file_nc_name_old)
+            os.system('ncatted -O -h -a ENSEMBLE_SHORT,global,c,c,"' + ensemble_new + '" ' + full_file_nc_name_old)
 
             print('- - - - - - - - - - - - - - - -')
 
-            print("mv -v ' + full_file_nc_name_old + ' ' + full_file_nc_name_new)
-            os.system(" mv -v ' + full_file_nc_name_old + ' ' + full_file_nc_name_new)
+            print('mv -v ' + full_file_nc_name_old + ' ' + full_file_nc_name_new)
+            os.system(' mv -v ' + full_file_nc_name_old + ' ' + full_file_nc_name_new)
            
     print('===============================')
     print(' ')
