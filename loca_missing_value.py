@@ -26,7 +26,8 @@ thredds_root = "/projects/ECEP/LOCA_MACA_Ensembles/LOCA/LOCA_NGP/Northern_Great_
 
 rcps      = ["historical","rcp45","rcp85"]
 
-variables = [ "rhmin" ]
+variables = ["tasmax", "tasmin", "pr", "rhmin", "rhmax"]
+
 
 ensembles =  ["ACCESS1-0" ,     \
               "ACCESS1-3",      \
@@ -135,11 +136,11 @@ for variable_new in variables:
             print(output_file_nc_name_old)
             print(output_file_nc_name_new)
             
-            if ((variable_new != "rhmin") and (variable_new != "rhmax")) :
-            
-                print('- - - - - - - - - - - - - - - -')
 
-                os.system('ncatted -O -h -a missing_value,'+variable_new+',o,s,-32767  ' + full_file_nc_name_new)
+            
+            print('- - - - - - - - - - - - - - - -')
+            print('ncatted -O -h -a missing_value,'+variable_new+',o,s,-32767  ' + full_file_nc_name_new)
+            os.system('ncatted -O -h -a missing_value,'+variable_new+',o,s,-32767  ' + full_file_nc_name_new)
 
 
 
