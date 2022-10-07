@@ -122,8 +122,8 @@ for rcp in rcps:
 
         print('- - - - - - - - - - - - - - - -')
         print(    '')
-        print(    'cdo merge */*'+ensemble+'.nc   output_file_nc_name_new.nc')
-        os.system('cdo merge */*'+ensemble+'.nc   output_file_nc_name_new.nc')
+        print(    'cdo merge */*'+ensemble+'*.nc '+output_file_nc_name_new)
+        os.system('cdo merge */*'+ensemble+'*.nc '+output_file_nc_name_new)
         
 
 
