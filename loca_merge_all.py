@@ -91,68 +91,53 @@ ensemble2s = ["ACCESS1-0_r1i1p1" ,     \
 # In[ ]:
 
 
-for variable_new in variables:
-    
-    print(' ')
-    print(' ')
+print(' ')
+print(' ')
+print('===============================')
+
+for rcp in rcps:
     print('===============================')
-    
-    for rcp in rcps:
+
+    directory = thredds_root + rcp 
+    print("cd " + directory)
+    os.chdir(directory)
+
+    for ensemble in ensembles:
+
+        print('-------------------------------')
+
+
+        output_file_nc_name_new = "NGP_LOCA"    + \
+                                  "___"          + \
+                                  ensemble  + \
+                                  "___"          + \
+                                  rcp           + \
+                                  ".nc"
+
+        full_file_nc_name_new = "./" + output_file_nc_name_new
+
+
+        print(output_file_nc_name_new)
+
+
+        print('- - - - - - - - - - - - - - - -')
+        print(    '')
+        print(    'cdo merge */*'+ensemble+'.nc   output_file_nc_name_new.nc')
+        os.system('cdo merge */*'+ensemble+'.nc   output_file_nc_name_new.nc')
         
-        directory = thredds_root + rcp + "/" + variable_new 
-        print("cd " + directory)
-        os.chdir(directory)
-
-        for ens_j in range(len(ensembles)):
-            
-            print('-------------------------------')
-
-            ensemble_new = ensembles[ens_j]
-            
-            output_file_nc_name_new = "NGP_LOCA"    + \
-                                      "___"          + \
-                                      variable_new  + \
-                                      "___"          + \
-                                      ensemble_new  + \
-                                      "___"          + \
-                                      rcp           + \
-                                      ".nc"
-            
-            full_file_nc_name_new = "./" + output_file_nc_name_new
-            
-
-            print(output_file_nc_name_new)
-            
-           
-            print('- - - - - - - - - - - - - - - -')
-            print(    'ncatted -O -h -a ,lon_bnds,d,,  ' + full_file_nc_name_new)
-            os.system('ncatted -O -h -a ,lon_bnds,d,,  ' + full_file_nc_name_new)
-            print(    'ncatted -O -h -a ,lat_bnds,d,,  ' + full_file_nc_name_new)
-            os.system('ncatted -O -h -a ,lat_bnds,d,,  ' + full_file_nc_name_new)
-            print(    'ncatted -O -h -a ,time_bnds,d,, ' + full_file_nc_name_new)
-            os.system('ncatted -O -h -a ,time_bnds,d,, ' + full_file_nc_name_new)
-            print(    'ncatted -O -h -a history,,d,,   ' + full_file_nc_name_new)
-            os.system('ncatted -O -h -a history,,d,,   ' + full_file_nc_name_new)
-            
-            if (variable_new == "rhmin"):
-                print(    'ncatted -O -h -a cell_methods,rhmin,o,c,"time: minimum" ' + full_file_nc_name_new)
-                os.system('ncatted -O -h -a cell_methods,rhmin,o,c,"time: minimum" ' + full_file_nc_name_new)  
-            if (variable_new == "rhmax"):
-                print(    'ncatted -O -h -a cell_methods,rhmax,o,c,"time: maximum" ' + full_file_nc_name_new)
-                os.system('ncatted -O -h -a cell_methods,rhmax,o,c,"time: maximum" ' + full_file_nc_name_new) 
-
-                 
-
-                
-
-           
-    print('===============================')
-    print(' ')
-    print(' ')
 
 
-            
-            
+
+
+
+
+
+print(' ')
+print(' ')
+
+
+
+
 
 
 # 
