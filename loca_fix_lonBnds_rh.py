@@ -131,8 +131,8 @@ for variable_new in variables:
             os.system('ncatted -O -h -a ,lat_bnds,d,,  ' + full_file_nc_name_new)
             print(    'ncatted -O -h -a ,time_bnds,d,, ' + full_file_nc_name_new)
             os.system('ncatted -O -h -a ,time_bnds,d,, ' + full_file_nc_name_new)
-            print(    'ncatted -O -h -a history,,d,, ' + full_file_nc_name_new)
-            os.system('ncatted -O -h -a history,,d,, ' + full_file_nc_name_new)
+            print(    'ncatted -O -h -a history,,d,,   ' + full_file_nc_name_new)
+            os.system('ncatted -O -h -a history,,d,,   ' + full_file_nc_name_new)
             
             if (variable_new == "rhmin"):
                 print(    'ncatted -O -h -a cell_methods,rhmin,o,s,"time: minimum" ' + full_file_nc_name_new)
@@ -141,7 +141,6 @@ for variable_new in variables:
                 print(    'ncatted -O -h -a cell_methods,rhmax,o,s,"time: maximum" ' + full_file_nc_name_new)
                 os.system('ncatted -O -h -a cell_methods,rhmax,o,s,"time: maximum" ' + full_file_nc_name_new) 
 
-missing_value,'+variable_new+',o,s,-32767  ' + full_file_nc_name_new
                  
 
                 
