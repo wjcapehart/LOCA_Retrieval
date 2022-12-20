@@ -82,14 +82,14 @@ for rcp in rcps:
 
         print('-------------------------------')
 
-        input_file_nc_name_new  = thredds_root  + rcp + \
+        input_file_nc_name_new  = thredds_root  + rcp + "/" + \
                                   "NGP_LOCA"    + \
                                   "___"          + \
                                   ensemble  + \
                                   "___"          + \
                                   rcp           + \
                                   ".nc"
-        output_file_nc_name_new = thredds_root + rcp  + \
+        output_file_nc_name_new = thredds_root + rcp  + "/" + \
                                   "NGP_LOCA"    + \
                                   "___"          + \
                                   ensemble  + \
@@ -107,7 +107,7 @@ for rcp in rcps:
         print(    'cdo yearmax '+input_file_nc_name_new+' '+output_file_nc_name_new)
         os.system('cdo yearmax '+input_file_nc_name_new+' '+output_file_nc_name_new)
         
-        output_file_nc_name_new = thredds_root2 + rcp  + \
+        output_file_nc_name_new = thredds_root2 + rcp  + "/" + \
                                   "NGP_CHEYENNE"    + \
                                   "___"          + \
                                   ensemble  + \
