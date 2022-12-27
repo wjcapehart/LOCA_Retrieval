@@ -21,7 +21,10 @@ import numpy as np
 working_directory = "./"
 
 
-thredds_root = "/projects/ECEP/LOCA_MACA_Ensembles/LOCA/LOCA_NGP/Northern_Great_Plains_Original_Subset/"
+thredds_root_orig = "/projects/ECEP/LOCA_MACA_Ensembles/LOCA/LOCA_NGP/Northern_Great_Plains_Original_Subset/"
+
+thredds_root_new  = "/projects/ECEP/LOCA_MACA_Ensembles/LOCA/LOCA_NGP/climatology/ANNUAL/ANN_MAX_SERIES/"
+
 
 rcps      = ["historical","rcp45","rcp85"]
 
@@ -82,14 +85,14 @@ for rcp in rcps:
 
         print('-------------------------------')
 
-        input_file_nc_name_new  = thredds_root  + rcp + "/" + \
+        input_file_nc_name_orig  = thredds_root_orig  + rcp + "/" + \
                                   "NGP_LOCA"    + \
                                   "___"          + \
                                   ensemble  + \
                                   "___"          + \
                                   rcp           + \
                                   ".nc"
-        output_file_nc_name_new = thredds_root + rcp  + "/" + \
+        output_file_nc_name_new = thredds_root_new + rcp  + "/" + \
                                   "NGP_LOCA"    + \
                                   "___"          + \
                                   ensemble  + \
@@ -101,14 +104,14 @@ for rcp in rcps:
 
 
 
-        print('- - - - - - - - - - - - - - - -')
-        print(output_file_nc_name_new)
-        print(    '')
-        print(    'cdo yearmax '+input_file_nc_name_new+' '+output_file_nc_name_new)
-        os.system('cdo yearmax '+input_file_nc_name_new+' '+output_file_nc_name_new)
+        #print('- - - - - - - - - - - - - - - -')
+        #print(output_file_nc_name_new)
+        #print(    '')
+        #print(    'cdo yearmax '+input_file_nc_name_new+' '+output_file_nc_name_new)
+        #os.system('cdo yearmax '+input_file_nc_name_new+' '+output_file_nc_name_new)
         
-        output_file_nc_name_new = thredds_root2 + rcp  + "/" + \
-                                  "NGP_CHEYENNE"    + \
+        output_file_nc_name_new_cheyenne = thredds_root_new + rcp  + "/" + \
+                                  "CHEYENNE_LOCA"    + \
                                   "___"          + \
                                   ensemble  + \
                                   "___"          + \
@@ -119,8 +122,8 @@ for rcp in rcps:
         print('- - - - - - - - - - - - - - - -')
         print(output_file_nc_name_new)
         print(    '')
-        print(    'ncea -h -4 -d lat,139,180 -d lon,131,209 ' + input_file_nc_name_new + " " + output_file_nc_name_new)
-        os.system('ncea -h -4 -d lat,139,180 -d lon,131,209 ' + input_file_nc_name_new + " " + output_file_nc_name_new)
+        print(    'ncea -h -4 -d lat,139,180 -d lon,131,209 ' + output_file_nc_name_new + " " + output_file_nc_name_new_cheyenne)
+        os.system('ncea -h -4 -d lat,139,180 -d lon,131,209 ' + output_file_nc_name_new + " " + output_file_nc_name_new_cheyenne)
         
 
 
