@@ -77,7 +77,7 @@ print('===============================')
 for rcp in rcps:
     print('===============================')
 
-    directory = thredds_root + rcp 
+    directory = thredds_root_new + rcp 
     print("cd " + directory)
     os.chdir(directory)
 
